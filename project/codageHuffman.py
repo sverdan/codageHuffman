@@ -574,6 +574,33 @@ class Arbre(Scene):
 
 
 
+#######################
+#
+# LIMITATIONS
+#
+#######################
+
+class Limitations(Scene):
+    def construct(self):
+
+        ech = .5 # pour régler l'échelle
+        l0 = Tex(r'Limitations du codage de Huffman').scale(1.5).move_to(np.array([-1,3.5 ,0]))
+        l1 = Tex(r'Le codage de Huffman impose d''utiliser un nombre entier de bits pour un symbole source').scale(1).next_to(l0, direction=DOWN, aligned_edge=LEFT)
+        l2 = Tex(r'codage Huffman sur des blocs de n symboles').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r'Le codage de Huffman évalue les probabilités des symboles au début, donc il n''est pas adapté dans le cas d''une source dont les propriétés statistiques évoluent').scale(1).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r'codage de Huffman adaptatif').scale(0.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        
+        
+        self.play(Write(l0))
+        self.wait(1)
+        self.play(Write(l1))
+        self.wait(1)
+        self.play(Write(l2))
+        self.wait(3)  
+        self.play(Write(l3))
+        self.wait(1)
+        self.play(Write(l4))
+        self.wait(10)
 
 
 
