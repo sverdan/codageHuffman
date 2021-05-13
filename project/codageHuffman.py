@@ -31,15 +31,16 @@ class CircleWithContent(VGroup):
 class Titre(Scene):
     def construct(self):
        
-        l0 = Tex(r'Codage de Huffman').scale(2).move_to(np.array([0,3,0]))
+        l0 = Tex(r'Codage de Huffman',color=BLUE).scale(2).move_to(np.array([0,2,0]))
         l1 = Tex(r"Murièle Jacquier \& Simon Verdan").scale(1).next_to(l0, direction=3*DOWN)
-        l2 = Tex(r"Algorithmes et structures de données - I").scale(.8).next_to(l1, direction=3*DOWN)
-        l3 = Tex(r"GymInf 2021").scale(.8).next_to(l1, direction=3*DOWN)
+        l2 = Tex(r"Algorithmes et structures de données - I").scale(.7).next_to(l1, direction=10*DOWN)
+        l3 = Tex(r"GymInf 2021").scale(.7).next_to(l2, direction=DOWN)
        
        
         self.play(Write(l0))
         self.play(FadeIn(l1))
         self.play(FadeIn(l2))
+        self.play(FadeIn(l3))
 
         self.wait(2)
 
@@ -56,16 +57,83 @@ class Titre(Scene):
 class Intro(Scene):
     def construct(self):
         
-        ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Introduction du problème').scale(ech).move_to(np.array([-4,3.5 ,0]))
-        l1 = Tex(r'(ici on décrit le problème résolu par le codage de Huffman)').scale(ech).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'ex : Hello World et image 10x10').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'Domaine (où comment pourquoi) + exemple générique').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'Partie historique ?').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5 = Tex(r'Codage préfixe ? (exemple du livre ou exemple ci-dessus)').scale(ech).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        ech = .6 # pour régler l'échelle
+       
+        
+        l0 = Tex(r'Codage de Huffman ?').scale(2).move_to(np.array([0,3,0]))
+        l0b = Tex(r'Compression de données').scale(2)
+
+        l1 = Tex('H','e','l','l','o ','W','o','r','l','d',color=BLUE).scale(1).next_to(l0, direction=5*DOWN)
+        
+        # avec ! : listeAscii = ['1001000','1100101','1101100','1101100','1101111','0100000','1010111','1101111','1110010','1101100','1100100','0100000','0100001']
+
+        listeAscii = ['01001000','01100101','01101100','01101100','01101111','00100000','01010111','01101111','01110010','01101100','01100100']
+        
+        code = ""
+        for i in listeAscii :
+           code = code + i + ' ' 
+
+        l2 = Tex(code).scale(ech).next_to(l1, direction=2*DOWN)
+        l3 = Tex('codage ASCII (mots de 8 bits) : 88 bits nécessaires').scale(ech).next_to(l2, direction=DOWN)
+        
+        self.play(Write(l0))
+        self.wait(1)
+        self.play(ReplacementTransform(l0,l0b))
+        
+        l0c= Tex('Utilisé pour PNG, JPEG, MPEG, MP3, ZIP, etc.').scale(ech).next_to(l0b, direction=DOWN)
+        self.play(FadeIn(l0c))
+        self.wait(2)
+        self.play(FadeOut(l0c))
+        self.play(l0b.animate.move_to(np.array([0,3,0])))
+
+        self.wait(1)
+        self.play(Write(l1))
+        self.wait(1)
+        self.play(FadeIn(l2))
+        self.add(l3)
+        
+        self.wait(1)
+
+        def switchColorForSmallTime(texte,couleur1,couleur2):
+            l1.set_color_by_tex(texte, couleur1)
+            self.wait(1.5)
+            l1.set_color_by_tex(texte,couleur2)
+            self.wait(1.5)
+
+        switchColorForSmallTime('l',RED,BLUE)
+        switchColorForSmallTime('o',RED,BLUE)
+        
+        l3b = Tex(r'$\leftarrow$ 8 symboles différents',color=RED).scale(.8).next_to(l1,direction=2*RIGHT)
+        self.play(FadeIn(l3b))
+        self.wait(2)
+        self.play(FadeOut(l3b))
+        
+        l4 = Tex('Codage de Huffman :',color=BLUE).scale(ech).next_to(l3,direction=2*DOWN + .2*LEFT)
+        l5 = Tex(r'$\circ$ codage adapté au nombre de symboles présents').scale(ech).next_to(l4,direction=RIGHT)
+        l6 = Tex(r'$\circ$ mots plus courts pour les symboles plus fréquents').scale(ech).next_to(l5,direction=DOWN, aligned_edge=LEFT)
+
+        self.play(Write(l4))
+        self.play(FadeIn(l5))
+        self.play(FadeIn(l6)) 
+        
+        listeHuffman = ['1111','010','10','10','00','1100','1101','00','1110','10','011']
+        code = ""
+        for i in listeHuffman :
+           code = code + i + ' '
+
+        l7 = Tex(code).scale(ech).next_to(l3, direction=7*DOWN)
+        l8 = Tex('codage de Huffman (mots de taille variable) : 32 bits nécessaires').scale(ech).next_to(l7, direction=DOWN)
+
+        self.play(FadeIn(l7))
+        self.play(FadeIn(l8))
+        
+        l2b = Tex(r'ex : Hello World et image 10x10').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3b = Tex(r'Domaine (où comment pourquoi) + exemple générique').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4b = Tex(r'Partie historique ?').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5b = Tex(r'Codage préfixe ? (exemple du livre ou exemple ci-dessus)').scale(ech).next_to(l4, direction=DOWN, aligned_edge=LEFT)
 
         
-        self.add(l0,l1,l2,l3,l4,l5)
+        
         self.wait(10)
 
 #########################
@@ -78,6 +146,12 @@ class TexteArbre(Scene):
     def construct(self):
         
         ech = .5 # pour régler l'échelle
+        titre = Tex(r'Un exemple pour comprendre').scale(2).move_to(np.array([0,3,0]))
+        self.play(Write(titre))
+        self.wait(2)
+        self.play(FadeOut(titre))
+        self.wait(1)
+
         l0 = Tex(r'100 caractères $c$').scale(.7).move_to(np.array([-5, 3, 0]))
         l0b = Tex(r'avec $c \in C = \{A..F\}$').scale(.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
         
@@ -92,8 +166,8 @@ class TexteArbre(Scene):
 
         echA = .35
         as0 = Tex(r'100 caractères').scale(.7).move_to(np.array([-5, 3, 0]))
-        as0b = Tex(r'ASCII 7 bits').scale(.7).next_to(as0, direction=DOWN, aligned_edge=LEFT)
-        as0c = Tex(r'700 bits').set_color(RED).scale(.8).next_to(as0b, direction=DOWN, aligned_edge=LEFT)
+        as0b = Tex(r'ASCII (mots de 8 bits)').scale(.7).next_to(as0, direction=DOWN, aligned_edge=LEFT)
+        as0c = Tex(r'800 bits').set_color(RED).scale(.8).next_to(as0b, direction=DOWN, aligned_edge=LEFT)
         as1 = Tex(r'10001001000010100000110001011000101100001110000111000001100000110000011000100100000110000011000100100001010000011000011100000110000011000010').scale(echA).move_to(np.array([0, 1, 0]))
         as2 = Tex(r'10000101000110100010010000011000110100000110000011000101100000110000011000100100000110001001000011100000110001011000001100001010000011000100').scale(echA).next_to(as1, direction=DOWN, aligned_edge=LEFT)
         as3 = Tex(r'10000111000011100001110000011000001100010010000011000110100011010000011000001100001010000011000001100010110000011000100100010010000111000110').scale(echA).next_to(as2, direction=DOWN, aligned_edge=LEFT)
@@ -120,7 +194,7 @@ class TexteArbre(Scene):
             self.play(FadeOut(listeCara[i]))
             self.play(Write(listeAscii[i]))
         
-        as6 = Tex(r'100 caractères en ASCII 7 bits soit 700 bits',color=BLUE).scale(.7).next_to(as5, direction=3*DOWN)
+        as6 = Tex(r'100 caractères en ASCII 8 bits soit 800 bits',color=BLUE).scale(.7).next_to(as5, direction=3*DOWN)
         self.play(Write(as6))
 
         self.wait(2)
@@ -680,11 +754,11 @@ class Limitations(Scene):
         self.play(Write(l0))
         self.play(Write(l0b))
         self.wait(1)
-        self.play(Write(l1))
+        self.play(FadeIn(l1))
         self.wait(1)
         self.play(Write(l2))
         self.wait(3)  
-        self.play(Write(l3))
+        self.play(FadeIn(l3))
         self.wait(1)
         self.play(Write(l4))
         self.wait(10)
@@ -707,13 +781,15 @@ class Caractéristiques(Scene):
         self.play(Write(l0))
         self.play(Write(l0b))
         self.wait(1)
-        self.play(Write(l1))
+        self.play(FadeIn(l1))
         self.wait(1)
-        self.play(Write(l2))
+        self.play(FadeIn(l2))
         self.wait(1)  
-        self.play(Write(l3),Write(l4))
+        self.play(FadeIn(l3))
+        self.play(FadeIn(l4))
         self.wait(3)
-        self.play(Write(l5),Write(l6))
+        self.play(FadeIn(l5))
+        self.play(FadeIn(l6))
         self.wait(10)
         
 
@@ -728,12 +804,12 @@ class Preuve(Scene):
     def construct(self):
         
         ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Preuve').scale(2).move_to(np.array([-4,3.5 ,0]))
-        l1 = Tex(r"2 étapes pour démontrer que l'algorithme glouton de Huffman est correct").scale(0.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'Étape 1 : Lemme des fréquences faibles',color=BLUE).scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)  
+        l0 = Tex(r'Preuve').scale(2).move_to(np.array([0,3,0]))
+        l1 = Tex(r"Deux étapes pour démontrer que l'algorithme glouton de Huffman est correct").scale(0.7).next_to(l0, direction=DOWN)
+        l2 = Tex(r'Étape 1 : Lemme des fréquences faibles',color=BLUE).scale(0.7).next_to(l1, direction=DOWN)  
         
         
-        l6 = Tex(r"Étape 2 : Lemme de propagation de l'optimalité",color=BLUE).scale(0.7).next_to(l2, direction=9*DOWN, aligned_edge=LEFT)
+        l6 = Tex(r"Étape 2 : Lemme de propagation de l'optimalité",color=BLUE).scale(0.7).next_to(l2, direction=9*DOWN)
         
         
        
@@ -751,58 +827,59 @@ class Preuve(Scene):
         self.wait(1)
         # on déplace les titres des preuves
         ssTitre = VGroup(l2,l6) 
-        self.play(ApplyMethod(ssTitre.shift,UP))
+        self.play(ApplyMethod(ssTitre.shift,1.5*UP))
 
         # contenu des preuves
-        l3 = Tex(r'Soit $C$ un alphabet dans lequel chaque caractère $c \in C$ a la fréquence $c.freq$.').scale(0.5).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'Soient $x$ et $y$ deux caractères de $C$ ayant les fréquences les plus basses.').scale(0.5).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r'Soit $C$ un alphabet dans lequel chaque caractère $c \in C$ a la fréquence $c.freq$').scale(0.5).next_to(l2, direction=DOWN)
+        l4 = Tex(r'Soient $x$ et $y$ deux caractères de $C$ ayant les fréquences les plus basses').scale(0.5).next_to(l3, direction=DOWN)
         l5 = Tex(r'Alors il existe un codage préface optimal pour $C$ dans lequel les mots de code pour $x$ et $y$ ont la même longueur et ne diffèrent que par le dernier bit').scale(0.5).next_to(l4, direction=DOWN, aligned_edge=LEFT)
-        l7 = Tex(r'Soit $C$ un alphabet dans lequel chaque caractère $c \in C$ a la fréquence $c.freq$.').scale(0.5).next_to(l6, direction=DOWN, aligned_edge=LEFT)
-        l8 = Tex(r'Soient $x$ et $y$ deux caractères de $C$ ayant la fréquence minimale.').scale(0.5).next_to(l7, direction=DOWN, aligned_edge=LEFT)
-        l9 = Tex(r"Soit $C'$ l'alphabet $C$ privé des caractères $x$ et $y$ et complété par un nouveau caractère, de sorte que $C'=C-(x,y)U(z)$").scale(0.5).next_to(l8, direction=DOWN, aligned_edge=LEFT)
-        l10 = Tex(r"On définit $C'$ comme $C$ sauf que $z.freq=x.freq+y.freq$").scale(0.5).next_to(l9, direction=DOWN, aligned_edge=LEFT)
-        l11 = Tex(r"Soit $T'$ un arbre  représentant un code préfixe optimal pour l'alphabet $C'$").scale(0.5).next_to(l10, direction=DOWN, aligned_edge=LEFT)
-        l12 = Tex(r"Alors, l'arbre  $T$, obtenu à partir de $T'$ en remplaçant le nœud feuille associé à $z$ par un nœud interne ayant $x$ et $y$ comme enfants, représente un code optimal pour l'alphabet $C$").scale(0.5).next_to(l11, direction=DOWN, aligned_edge=LEFT)
+        l7 = Tex(r'Soit $C$ un alphabet dans lequel chaque caractère $c \in C$ a la fréquence $c.freq$').scale(0.5).next_to(l6, direction=DOWN)
+        l8 = Tex(r'Soient $x$ et $y$ deux caractères de $C$ ayant la fréquence minimale').scale(0.5).next_to(l7, direction=DOWN)
+        l9 = Tex(r"Soit $C'$ l'alphabet $C$ privé des caractères $x$ et $y$ et complété par un nouveau caractère, de sorte que $C'=C-(x,y)U(z)$").scale(0.5).next_to(l8, direction=DOWN)
+        l10 = Tex(r"On définit $C'$ comme $C$ sauf que $z.freq=x.freq+y.freq$").scale(0.5).next_to(l9, direction=DOWN)
+        l11 = Tex(r"Soit $T'$ un arbre  représentant un code préfixe optimal pour l'alphabet $C'$").scale(0.5).next_to(l10, direction=DOWN)
+        l12 = Tex(r"Alors, l'arbre  $T$, obtenu à partir de $T'$ en remplaçant le nœud feuille associé à $z$ par un nœud interne ayant $x$ et $y$ comme enfants, représente un code optimal pour l'alphabet $C$").scale(0.5).next_to(l11, direction=DOWN)
 
         # affichage du contenu des preuves
-        self.play(Write(l3))
-        self.play(Write(l4))
-        self.play(Write(l5))
+        self.play(FadeIn(l3))
+        self.play(FadeIn(l4))
+        self.play(FadeIn(l5))
         self.wait(5)
-        self.play(Write(l7))
-        self.play(Write(l8))
-        self.play(Write(l9))
+        self.play(FadeIn(l7))
+        self.play(FadeIn(l8))
+        self.play(FadeIn(l9))
         self.wait(2)
-        self.play(Write(l10))
-        self.play(Write(l11))
-        self.play(Write(l12))
+        self.play(FadeIn(l10))
+        self.play(FadeIn(l11))
+        self.play(FadeIn(l12))
         self.wait(10)
 
 class Complexite(Scene):
     def construct(self):
         
         ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Complexité').scale(2).move_to(np.array([-4,3.5 ,0]))
-        l1 = Tex(r'L\' algorithme de Huffman est glouton').scale(1).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'tout noeud construit est définitif').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'sous arbre - arbre optimal').scale(0.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'Coûts pour un alphabet de k symboles ').scale(1).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5 = Tex(r'k-1 itérations sur E').scale(0.7).next_to(l4, direction=DOWN, aligned_edge=LEFT)
-        l6 = Tex(r'Coûts d\' intégration et d\' extraction sont en theta(log(k))').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
-        l7 = Tex(r'l\' algorithme est donc en theta(klog(k))').scale(1.0).next_to(l6, direction=DOWN, aligned_edge=LEFT)
+        l0 = Tex(r'Complexité').scale(2).move_to(np.array([0,3,0]))
+        l1 = Tex(r"L'algorithme de Huffman est glouton").scale(1).next_to(l0, direction=2*DOWN)
+        l2 = Tex(r"Tout nœud construit est définitif").scale(0.7).next_to(l1, direction=DOWN)
+        l3 = Tex(r"Sous arbre - arbre optimal").scale(0.7).next_to(l2, direction=DOWN)
+        l4 = Tex(r"Coûts pour un alphabet de $k$ symboles").scale(1).next_to(l3, direction=2*DOWN)
+        l5 = Tex(r"$k-1$ itérations sur $E$").scale(0.7).next_to(l4, direction=DOWN)
+        l6 = Tex(r"Coûts d'intégration et d'extraction sont en $\Theta(\log(k))$").scale(0.7).next_to(l5, direction=DOWN)
+        l7 = Tex(r"L'algorithme est donc en $\Theta(k\,\log(k))$",color=BLUE).scale(1.0).next_to(l6, direction=2*DOWN)
         
         
         self.play(Write(l0))
         self.wait(1)
         self.play(Write(l1))
         self.wait(1)
-        self.play(Write(l2),Write(l3))
+        self.play(FadeIn(l2))
+        self.play(FadeIn(l3))
         self.wait(3)  
         self.play(Write(l4))
         self.wait(1)
-        self.play(Write(l5))
+        self.play(FadeIn(l5))
         self.wait(1)
-        self.play(Write(l6))
+        self.play(FadeIn(l6))
         self.wait(3)
         self.play(Write(l7))
         self.wait(10)
@@ -817,12 +894,13 @@ class Complexite(Scene):
 class Implementation(Scene):
     def construct(self):
         
-        ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Implémentation').scale(2).move_to(np.array([-2,3.5 ,0]))
-        l1 = Tex(r"(ici l'implémentation)").scale(ech).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r"(ne pas oublier l'évaluation de la performance)").scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        ech = 1 # pour régler l'échelle
+        l0 = Tex(r'To do !').scale(2).move_to(np.array([0,3,0]))
+        l1 = Tex(r"Montrer comment lire l'arbre pour en déduire le codage").scale(ech).next_to(l0, direction=3*DOWN)
+        l2 = Tex(r"Montrer le codage obtenu sur le texte de 100 caractères").scale(ech).next_to(l1, direction=DOWN)
+        l3 = Tex(r"Donner le taux de compression obtenu").scale(ech).next_to(l2, direction=DOWN)
                 
-        self.add(l0,l1,l2)
+        self.add(l0,l1,l2,l3)
         self.wait(10)
 
 ##############################
