@@ -574,7 +574,36 @@ class Arbre(Scene):
 
 
 
+#######################
+#
+# CARACTeRISTIQUES
+#
+#######################
 
+class Caractéristiques(Scene):
+    def construct(self):
+
+        ech = .5 # pour régler l'échelle
+        l0 = Tex(r'Caractéristiques du code de Huffman').scale(1.5).move_to(np.array([-1,3.5 ,0]))
+        l1 = Tex(r'Non-unicité').scale(1).next_to(l0, direction=DOWN, aligned_edge=LEFT)
+        l2 = Tex(r'On peut produire des arbres différents pour un même alphabet').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r'choix pour les éléments de même fréquence').scale(0.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r'   choix gauche/droite pour chaque noeud').scale(0.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex(r'Conséquences').scale(1).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l6 = Tex(r'Pour décoder, il faut fournir le code ou au moins donner les règles sur les choix').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
+        
+        
+        self.play(Write(l0))
+        self.wait(1)
+        self.play(Write(l1))
+        self.wait(1)
+        self.play(Write(l2))
+        self.wait(1)  
+        self.play(Write(l3),Write(l4))
+        self.wait(3)
+        self.play(Write(l5),Write(l6))
+        self.wait(10)
+        
 
 
 #######################
@@ -593,21 +622,33 @@ class Preuve(Scene):
         self.add(l0,l1)
         self.wait(10)
 
-
-#######################
-#
-# C O M P L E X I T É
-#
-#######################
-
 class Complexite(Scene):
     def construct(self):
         
         ech = .5 # pour régler l'échelle
         l0 = Tex(r'Complexité').scale(2).move_to(np.array([-4,3.5 ,0]))
-        l1 = Tex(r'(ici on décrit la complexité)').scale(ech).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-                
-        self.add(l0,l1)
+        l1 = Tex(r'L\' algorithme de Huffman est glouton').scale(1).next_to(l0, direction=DOWN, aligned_edge=LEFT)
+        l2 = Tex(r'tout noeud construit est définitif').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r'sous arbre - arbre optimal').scale(0.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r'Coûts pour un alphabet de k symboles ').scale(1).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex(r'k-1 itérations sur E').scale(0.7).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l6 = Tex(r'Coûts d\' intégration et d\' extraction sont en theta(log(k))').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
+        l7 = Tex(r'l\' algorithme est donc en theta(klog(k))').scale(1.0).next_to(l6, direction=DOWN, aligned_edge=LEFT)
+        
+        
+        self.play(Write(l0))
+        self.wait(1)
+        self.play(Write(l1))
+        self.wait(1)
+        self.play(Write(l2),Write(l3))
+        self.wait(3)  
+        self.play(Write(l4))
+        self.wait(1)
+        self.play(Write(l5))
+        self.wait(1)
+        self.play(Write(l6))
+        self.wait(3)
+        self.play(Write(l7))
         self.wait(10)
 
 
