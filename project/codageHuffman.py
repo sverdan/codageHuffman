@@ -30,17 +30,19 @@ class CircleWithContent(VGroup):
 
 class Titre(Scene):
     def construct(self):
-        
-        ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Codage de Huffman').scale(1.5)
-        l1 = Tex(r'Murièle Jacquier').scale(ech).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'Simon Verdan').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'GymInf 2021').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'ASD I').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        
-        
-        self.add(l0,l1,l2,l3,l4)
-        self.wait(10)
+       
+        l0 = Tex(r'Codage de Huffman').scale(2).move_to(np.array([0,3,0]))
+        l1 = Tex(r"Murièle Jacquier \& Simon Verdan").scale(1).next_to(l0, direction=3*DOWN)
+        l2 = Tex(r"Algorithmes et structures de données - I").scale(.8).next_to(l1, direction=3*DOWN)
+        l3 = Tex(r"GymInf 2021").scale(.8).next_to(l1, direction=3*DOWN)
+       
+       
+        self.play(Write(l0))
+        self.play(FadeIn(l1))
+        self.play(FadeIn(l2))
+
+        self.wait(2)
+
 
 
 
@@ -76,83 +78,75 @@ class TexteArbre(Scene):
     def construct(self):
         
         ech = .5 # pour régler l'échelle
-        l0 = Tex(r'100 caractères').scale(.7).move_to(np.array([-5, 3, 0]))
-        l0b = Tex(r'lettres A..F').scale(.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
+        l0 = Tex(r'100 caractères $c$').scale(.7).move_to(np.array([-5, 3, 0]))
+        l0b = Tex(r'avec $c \in C = \{A..F\}$').scale(.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
         
         
-        l1 = Tex(r'DBAEECCAAADAADBACAAB').scale(ech).move_to(np.array([0, 1, 0]))
-        l2 = Tex(r'BFDAFAAEAADADCAEABAD').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'CCCAADAFFAABAAEADDCF').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'ADAAEBDDDBAACCAAAABA').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5 = Tex(r'BBDEECAAABBAAACAADAE').scale(ech).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l1 = Tex('D','B','A','E','E','C','C','A','A','A','D','A','A','D','B','A','C','A','A','B').scale(ech).move_to(np.array([0, 1, 0]))
+        l2 = Tex('B','F','D','A','F','A','A','E','A','A','D','A','D','C','A','E','A','B','A','D').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex('C','C','C','A','A','D','A','F','F','A','A','B','A','A','E','A','D','D','C','F').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex('A','D','A','A','E','B','D','D','D','B','A','A','C','C','A','A','A','A','B','A').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex('B','B','D','E','E','C','A','A','A','B','B','A','A','A','C','A','A','D','A','E').scale(ech).next_to(l4, direction=DOWN, aligned_edge=LEFT)
 
-# TODO : en haut à gauche afficher 100 caractères, lettres A..F
-# TODO : grouper, pousser à gauche, passer en ascii, afficher en haut à gauche ascii 7 bits et 700 bits
-# TODO : ensuite revenir au texte de départ, le laisser à gauche, et afficher les fréquences en changeant les couleurs des lettres
+
 
         echA = .35
         as0 = Tex(r'100 caractères').scale(.7).move_to(np.array([-5, 3, 0]))
         as0b = Tex(r'ASCII 7 bits').scale(.7).next_to(as0, direction=DOWN, aligned_edge=LEFT)
         as0c = Tex(r'700 bits').set_color(RED).scale(.8).next_to(as0b, direction=DOWN, aligned_edge=LEFT)
-        as1 = Tex(r'10001001000010100000110001011000101100001110000111000001100000110000011000100100000110000011000100100001010000011000011100000110000011000010').scale(echA).move_to(np.array([0, -1, 0]))
+        as1 = Tex(r'10001001000010100000110001011000101100001110000111000001100000110000011000100100000110000011000100100001010000011000011100000110000011000010').scale(echA).move_to(np.array([0, 1, 0]))
         as2 = Tex(r'10000101000110100010010000011000110100000110000011000101100000110000011000100100000110001001000011100000110001011000001100001010000011000100').scale(echA).next_to(as1, direction=DOWN, aligned_edge=LEFT)
         as3 = Tex(r'10000111000011100001110000011000001100010010000011000110100011010000011000001100001010000011000001100010110000011000100100010010000111000110').scale(echA).next_to(as2, direction=DOWN, aligned_edge=LEFT)
         as4 = Tex(r'10000011000100100000110000011000101100001010001001000100100010010000101000001100000110000111000011100000110000011000001100000110000101000001').scale(echA).next_to(as3, direction=DOWN, aligned_edge=LEFT)
         as5 = Tex(r'10000101000010100010010001011000101100001110000011000001100000110000101000010100000110000011000001100001110000011000001100010010000011000101').scale(echA).next_to(as4, direction=DOWN, aligned_edge=LEFT)
 
-
+        texteAscii = VGroup(as1,as2,as3,as4,as5)
         
 
 
 
-
-
-        #l6 = Tex(r"Analyse des fréquences d'apparition des lettres :").scale(ech).next_to(l5, direction=DOWN, aligned_edge=LEFT)
-        #l7 = Tex(r'A : 45\,\%\ ; B : 13\,\%\ ; C : 12\,\%\ ; D : 16\,\%\ ; E : 9\,\%\ ; F : 5\,\%').scale(ech).next_to(l6, direction=DOWN, aligned_edge=LEFT)
         
-        self.play(ShowCreation(l0))
-        self.play(ShowCreation(l0b))
-        self.play(ShowCreation(l1))
-        self.play(ShowCreation(l2))
-        self.play(ShowCreation(l3))
-        self.play(ShowCreation(l4))
-        self.play(ShowCreation(l5))
+        self.play(Write(l0))
+        self.play(Write(l0b))
+
+        listeCara=[l1,l2,l3,l4,l5]
+        listeAscii=[as1,as2,as3,as4,as5]
+        
+        for i in listeCara :
+            self.play(Write(i))
         self.wait(5)
 
-        self.play(Transform(l0,as0))
-        self.play(Transform(l0b,as0b))
-        self.wait(.5)
+        for i in range(len(listeCara)) :
+            self.play(FadeOut(listeCara[i]))
+            self.play(Write(listeAscii[i]))
+        
+        as6 = Tex(r'100 caractères en ASCII 7 bits soit 700 bits',color=BLUE).scale(.7).next_to(as5, direction=3*DOWN)
+        self.play(Write(as6))
 
-        self.play(Transform(l1,as1))
-        self.play(Transform(l2,as2))
-        self.play(Transform(l3,as3))
-        self.play(Transform(l4,as4))
-        self.play(Transform(l5,as5))
-        self.wait(.5)
-        self.play(ShowCreation(as0c))
+        self.wait(2)
 
-        self.wait(5)
+        # on enlève le texte ascii
+        self.play(FadeOut(texteAscii))
+        self.play(FadeOut(as6))
 
-        self.play(ShowCreation(l0))
-        self.play(ShowCreation(l0b))
-        self.play(ShowCreation(l1))
-        self.play(ShowCreation(l2))
-        self.play(ShowCreation(l3))
-        self.play(ShowCreation(l4))
-        self.play(ShowCreation(l5))
+        # et on remet le texte
+        for i in listeCara :
+            self.add(i)
 
-        self.wait(5)
+        self.wait(2)
 
+        
 
+        
 
         echA = .35 
         margeBoite = .5 
-        t6 = Text("A:45").set_color(WHITE).scale(echA).shift(np.array([-1.5, -2, 0]))
-        t4 = Text("B:13").set_color(WHITE).scale(echA).next_to(t6, direction=RIGHT, aligned_edge=LEFT, buff=margeBoite)
-        t3 = Text("C:12").set_color(WHITE).scale(echA).next_to(t4, direction=RIGHT, aligned_edge=LEFT, buff=margeBoite)
-        t5 = Text("D:16").set_color(WHITE).scale(echA).next_to(t3, direction=RIGHT, aligned_edge=LEFT, buff=margeBoite)
-        t2 = Text("E:9 ").set_color(WHITE).scale(echA).next_to(t5, direction=RIGHT, aligned_edge=LEFT, buff=margeBoite)
-        t1 = Text("F:5").set_color(WHITE).scale(echA).next_to(t2, direction=RIGHT, aligned_edge=LEFT, buff=margeBoite)
+        t6 = Text("A:45").set_color(WHITE).scale(echA).shift(np.array([-5, -2, 0]))
+        t4 = Text("B:13").set_color(WHITE).scale(echA).next_to(t6, direction=3*RIGHT, aligned_edge=LEFT, buff=margeBoite)
+        t3 = Text("C:12").set_color(WHITE).scale(echA).next_to(t4, direction=3*RIGHT, aligned_edge=LEFT, buff=margeBoite)
+        t5 = Text("D:16").set_color(WHITE).scale(echA).next_to(t3, direction=3*RIGHT, aligned_edge=LEFT, buff=margeBoite)
+        t2 = Text("E:9 ").set_color(WHITE).scale(echA).next_to(t5, direction=3*RIGHT, aligned_edge=LEFT, buff=margeBoite)
+        t1 = Text("F:5").set_color(WHITE).scale(echA).next_to(t2, direction= 3*RIGHT, aligned_edge=LEFT, buff=margeBoite)
 
         bufferVal = .15
         f1 = SurroundingRectangle(t1, buff = bufferVal)
@@ -174,15 +168,105 @@ class TexteArbre(Scene):
         x4 = VGroup(b4,t4,f4)
         x5 = VGroup(b5,t5,f5)
         x6 = VGroup(b6,t6,f6)
+        
+        def switchColor(texte,couleur):
+            l1.set_color_by_tex(texte, couleur)
+            l2.set_color_by_tex(texte, couleur)
+            l3.set_color_by_tex(texte, couleur)
+            l4.set_color_by_tex(texte, couleur)
+            l5.set_color_by_tex(texte, couleur)
 
+        # frequence A
+        switchColor('A',RED)
+        nbA = Tex(r'45\,\%',color=RED).scale(1.2).move_to(np.array([5, 0, 0]))
+        self.play(Write(nbA))
+        self.wait(1)
         self.play(ShowCreation(x6))
-        self.play(ShowCreation(x4))
-        self.play(ShowCreation(x3))
-        self.play(ShowCreation(x5))
-        self.play(ShowCreation(x2))
-        self.play(ShowCreation(x1))
+        self.play(FadeOut(nbA))
+        self.wait(1)
+        switchColor('A',WHITE)
 
-        self.wait(10)
+        # frequence B
+        switchColor('B',RED)
+        nbB = Tex(r'13\,\%',color=RED).scale(1.2).move_to(np.array([5, 0, 0]))
+        self.play(Write(nbB))
+        self.wait(1)
+        self.play(ShowCreation(x4))
+        self.play(FadeOut(nbB))
+        self.wait(1)
+        switchColor('B',WHITE)
+
+        # frequence C
+        switchColor('C',RED)
+        nbC = Tex(r'12\,\%',color=RED).scale(1.2).move_to(np.array([5, 0, 0]))
+        self.play(Write(nbC))
+        self.wait(1)
+        self.play(ShowCreation(x3))
+        self.play(FadeOut(nbC))
+        self.wait(1)
+        switchColor('C',WHITE)
+
+
+        switchColor('D',RED)
+        nbD = Tex(r'16\,\%',color=RED).scale(1.2).move_to(np.array([5, 0, 0]))
+        self.play(Write(nbD))
+        self.wait(1)
+        self.play(ShowCreation(x5))
+        self.play(FadeOut(nbD))
+        self.wait(1)
+        switchColor('D',WHITE)
+
+        switchColor('E',RED)
+        nbE = Tex(r'9\,\%',color=RED).scale(1.2).move_to(np.array([5, 0, 0]))
+        self.play(Write(nbE))
+        self.wait(1)
+        self.play(ShowCreation(x2))
+        self.play(FadeOut(nbE))
+        self.wait(1)
+        switchColor('E',WHITE)
+
+        switchColor('F',RED)
+        nbF = Tex(r'5\,\%',color=RED).scale(1.2).move_to(np.array([5, 0, 0]))
+        self.play(Write(nbF))
+        self.wait(1)
+        self.play(ShowCreation(x1))
+        self.play(FadeOut(nbF))
+        self.wait(1)
+        switchColor('F',WHITE)
+
+        self.wait(5)
+
+        self.play(ApplyMethod(x1.shift,DOWN))
+        self.play(ApplyMethod(x1.shift,9*LEFT))
+        self.wait(1)
+
+        self.play(x2.animate.shift(DOWN))
+        self.play(x2.animate.next_to(x1, direction= 3*RIGHT))
+        self.wait(1)
+
+        self.play(x3.animate.shift(DOWN))
+        self.play(x3.animate.next_to(x2, direction= 3*RIGHT))
+        self.wait(1)
+
+        self.play(x5.animate.shift(RIGHT)) # on bouge un peu D
+        self.play(x4.animate.shift(4*RIGHT)) # B
+        self.play(x4.animate.shift(DOWN))
+        self.play(x4.animate.next_to(x3, direction= 3*RIGHT))
+        self.wait(1)
+
+        #self.play(x5.animate.shift(RIGHT)) # D
+        self.play(x5.animate.shift(DOWN))
+        self.play(x5.animate.next_to(x4, direction= 3*RIGHT))
+        self.wait(1)
+
+        self.play(x6.animate.shift(9*RIGHT)) # A
+        self.play(x6.animate.shift(DOWN))
+        self.play(x6.animate.next_to(x5, direction= 3*RIGHT))
+        self.wait(1)
+
+        texte = Tex(r"File de priorité « min $F$ » dont les clés décrivent l'attribut $freq$ : ",color=BLUE).set_color(WHITE).scale(.7).shift(np.array([0, -2, 0]))
+        self.play(Write(texte))
+        self.wait(2)
 
 
 #######################
@@ -202,9 +286,9 @@ class Arbre(Scene):
         a2 = Tex(r'$2\quad Q \leftarrow C$').scale(ech).next_to(a1, direction=DOWN, aligned_edge=LEFT)
         a3 = Tex(r'$3\quad$\textbf{pour} $i \leftarrow 1$ \textbf{à} $n-1$').scale(ech).next_to(a2, direction=DOWN, aligned_edge=LEFT)
         a4 = Tex(r'$4\quad\quad$ \textbf{faire} allouer un nouveau n\oe ud $z$').scale(ech).next_to(a3, direction=DOWN, aligned_edge=LEFT)
-        a5 = Tex(r'$5\quad\quad\quad$ gauche$[z] \leftarrow x \leftarrow$ \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a4, direction=DOWN, aligned_edge=LEFT)
-        a6 = Tex(r'$6\quad\quad\quad$ droite$[z] \leftarrow y \leftarrow$ \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a5, direction=DOWN, aligned_edge=LEFT)
-        a7 = Tex(r'$7\quad\quad\quad f[z] \leftarrow f[x] + f[y]$').scale(ech).next_to(a6, direction=DOWN, aligned_edge=LEFT)
+        a5 = Tex(r'$5\quad\quad\quad z.gauche = x =$ \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a4, direction=DOWN, aligned_edge=LEFT)
+        a6 = Tex(r'$6\quad\quad\quad z.droit = y =$ \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a5, direction=DOWN, aligned_edge=LEFT)
+        a7 = Tex(r'$7\quad\quad\quad z.freq = x.freq + y.freq$').scale(ech).next_to(a6, direction=DOWN, aligned_edge=LEFT)
         a8 = Tex(r'$8\quad\quad\quad$\textsc{Insérer}$(Q,z)$').scale(ech).next_to(a7, direction=DOWN, aligned_edge=LEFT)
         a9 = Tex(r'$9$ \textbf{retourner} \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a8, direction=DOWN, aligned_edge=LEFT)
         boucleValue = Tex(r'Valeurs pour la boucle :').scale(ech).next_to(a9, direction=DOWN, aligned_edge=LEFT)
@@ -584,14 +668,17 @@ class Limitations(Scene):
     def construct(self):
 
         ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Limitations du codage de Huffman').scale(1.5).move_to(np.array([-1,3.5 ,0]))
-        l1 = Tex(r'Le codage de Huffman impose d''utiliser un nombre entier de bits pour un symbole source').scale(1).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'codage Huffman sur des blocs de n symboles').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'Le codage de Huffman évalue les probabilités des symboles au début, donc il n''est pas adapté dans le cas d''une source dont les propriétés statistiques évoluent').scale(1).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'codage de Huffman adaptatif').scale(0.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l0 = Tex(r'Limitations').scale(2).move_to(np.array([0,3 ,0]))
+        l0b = Tex(r'du codage de Huffman').scale(1.5).next_to(l0, direction=DOWN)
+        
+        l1 = Tex(r"Le codage de Huffman impose d'utiliser un nombre entier de bits pour un symbole source").scale(.7).move_to(np.array([0,.5,0]))
+        l2 = Tex(r"$\rightarrow$ codage Huffman sur des blocs de $n$ symboles",color=BLUE).scale(0.6).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r"Le codage de Huffman évalue les probabilités des symboles au début, donc il n'est pas adapté dans le cas d'une source dont les propriétés statistiques évoluent").scale(.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r"$\rightarrow$ codage de Huffman adaptatif",color=BLUE).scale(0.6).next_to(l3, direction=DOWN, aligned_edge=LEFT)
         
         
         self.play(Write(l0))
+        self.play(Write(l0b))
         self.wait(1)
         self.play(Write(l1))
         self.wait(1)
@@ -607,16 +694,18 @@ class Caractéristiques(Scene):
     def construct(self):
 
         ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Caractéristiques du code de Huffman').scale(1.5).move_to(np.array([-1,3.5 ,0]))
-        l1 = Tex(r'Non-unicité').scale(1).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'On peut produire des arbres différents pour un même alphabet').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'choix pour les éléments de même fréquence').scale(0.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'   choix gauche/droite pour chaque noeud').scale(0.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5 = Tex(r'Conséquences').scale(1).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l0 = Tex(r'Caractéristiques').scale(2).move_to(np.array([0,3 ,0]))
+        l0b = Tex(r'du codage de Huffman').scale(1.5).next_to(l0, direction=DOWN)
+        l1 = Tex(r'Non-unicité',color=BLUE).scale(1).move_to(np.array([-4,1,0]))
+        l2 = Tex(r'On peut produire des arbres différents pour un même alphabet :').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r'$\circ$ choix pour les éléments de même fréquence').scale(0.7).next_to(l2, direction=DOWN+.5*RIGHT, aligned_edge=LEFT)
+        l4 = Tex(r'$\circ$ choix gauche/droite pour chaque nœud').scale(0.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex(r'Conséquences',color=BLUE).scale(1).next_to(l4, direction=2*DOWN+.5*LEFT, aligned_edge=LEFT)
         l6 = Tex(r'Pour décoder, il faut fournir le code ou au moins donner les règles sur les choix').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
         
         
         self.play(Write(l0))
+        self.play(Write(l0b))
         self.wait(1)
         self.play(Write(l1))
         self.wait(1)
@@ -640,30 +729,53 @@ class Preuve(Scene):
         
         ech = .5 # pour régler l'échelle
         l0 = Tex(r'Preuve').scale(2).move_to(np.array([-4,3.5 ,0]))
-         l1 = Tex(r'2 étapes pour démontrer que l''algorithme glouton de Huffman est correct').scale(0.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r'Etape 1 : Lemme des fréquences faibles').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)  
-        l3 = Tex(r'Soit C un alphabet dans lequel chaque caractère c in C a la fréquence c.freq.').scale(0.5).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r'Soient x et y deux caractères de C ayant les fréquences les plus basses.').scale(0.5).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5 = Tex(r'Alors il existe un codage préface optimal pour C dans lequel les mots de code pour x et y ont la même longueur et ne diffèrent que par le dernier bit').scale(0.5).next_to(l4, direction=DOWN, aligned_edge=LEFT)
-        l6 = Tex(r'Etape 2 : Lemme de propagation de l''optimalité').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
-        l7 = Tex(r'Soit C un alphabet dans lequel chaque caractère c in C a la fréquence c.freq.').scale(0.5).next_to(l6, direction=DOWN, aligned_edge=LEFT)
-        l8 = Tex(r'Soient x et y deux caractères de C ayant la fréquence minimale.').scale(0.5).next_to(l7, direction=DOWN, aligned_edge=LEFT)
-        l9 = Tex(r'Soit C'' l''alphabet C privé des caractères x et y et complété par un nouveau caractère, de sorte que C''=C-(x,y)U(z)').scale(0.5).next_to(l8, direction=DOWN, aligned_edge=LEFT)
-        l10 = Tex(r'On définit C'' comme C sauf que z.freq=x.freq+y.freq').scale(0.5).next_to(l9, direction=DOWN, aligned_edge=LEFT)
-        l11 = Tex(r'Soit T'' un arbre  représentant un code préfixe optimal pour l''alphabet C''').scale(0.5).next_to(l10, direction=DOWN, aligned_edge=LEFT)
-        l12 = Tex(r'Alors, l''arbre  T, obtenu ä partir de T'' en remplaçant le noeud feuille associé à z par un noued interne ayant x et y comme enfants, représente un code optimal pour l''alphabet C').scale(0.5).next_to(l11, direction=DOWN, aligned_edge=LEFT)
+        l1 = Tex(r"2 étapes pour démontrer que l'algorithme glouton de Huffman est correct").scale(0.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
+        l2 = Tex(r'Étape 1 : Lemme des fréquences faibles',color=BLUE).scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)  
         
+        
+        l6 = Tex(r"Étape 2 : Lemme de propagation de l'optimalité",color=BLUE).scale(0.7).next_to(l2, direction=9*DOWN, aligned_edge=LEFT)
+        
+        
+       
+        # On affiche les titres
         self.play(Write(l0))
         self.wait(1)
         self.play(Write(l1))
         self.wait(2)
-        self.play(Write(l2),Write(l6))
+        self.play(Write(l2))
+        self.play(Write(l6))
         self.wait(2)
-        self.play(Write(l3),Write(l4), Write(l5))
+        # On efface les titres du haut
+        Titre = VGroup(l0,l1)
+        self.play(FadeOut(Titre))
+        self.wait(1)
+        # on déplace les titres des preuves
+        ssTitre = VGroup(l2,l6) 
+        self.play(ApplyMethod(ssTitre.shift,UP))
+
+        # contenu des preuves
+        l3 = Tex(r'Soit $C$ un alphabet dans lequel chaque caractère $c \in C$ a la fréquence $c.freq$.').scale(0.5).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r'Soient $x$ et $y$ deux caractères de $C$ ayant les fréquences les plus basses.').scale(0.5).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex(r'Alors il existe un codage préface optimal pour $C$ dans lequel les mots de code pour $x$ et $y$ ont la même longueur et ne diffèrent que par le dernier bit').scale(0.5).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l7 = Tex(r'Soit $C$ un alphabet dans lequel chaque caractère $c \in C$ a la fréquence $c.freq$.').scale(0.5).next_to(l6, direction=DOWN, aligned_edge=LEFT)
+        l8 = Tex(r'Soient $x$ et $y$ deux caractères de $C$ ayant la fréquence minimale.').scale(0.5).next_to(l7, direction=DOWN, aligned_edge=LEFT)
+        l9 = Tex(r"Soit $C'$ l'alphabet $C$ privé des caractères $x$ et $y$ et complété par un nouveau caractère, de sorte que $C'=C-(x,y)U(z)$").scale(0.5).next_to(l8, direction=DOWN, aligned_edge=LEFT)
+        l10 = Tex(r"On définit $C'$ comme $C$ sauf que $z.freq=x.freq+y.freq$").scale(0.5).next_to(l9, direction=DOWN, aligned_edge=LEFT)
+        l11 = Tex(r"Soit $T'$ un arbre  représentant un code préfixe optimal pour l'alphabet $C'$").scale(0.5).next_to(l10, direction=DOWN, aligned_edge=LEFT)
+        l12 = Tex(r"Alors, l'arbre  $T$, obtenu à partir de $T'$ en remplaçant le nœud feuille associé à $z$ par un nœud interne ayant $x$ et $y$ comme enfants, représente un code optimal pour l'alphabet $C$").scale(0.5).next_to(l11, direction=DOWN, aligned_edge=LEFT)
+
+        # affichage du contenu des preuves
+        self.play(Write(l3))
+        self.play(Write(l4))
+        self.play(Write(l5))
         self.wait(5)
-        self.play(Write(l7),Write(l8), Write(l9))
+        self.play(Write(l7))
+        self.play(Write(l8))
+        self.play(Write(l9))
         self.wait(2)
-        self.play(Write(l10),Write(l11), Write(l12))
+        self.play(Write(l10))
+        self.play(Write(l11))
+        self.play(Write(l12))
         self.wait(10)
 
 class Complexite(Scene):
@@ -722,12 +834,25 @@ class Implementation(Scene):
 class Credit(Scene):
     def construct(self):
         
-        ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Crédit').scale(1.2).move_to(np.array([-2,3.5 ,0]))
-        l1 = Tex(r"Une vidéo réalisée à l'aide de Python et de la bibliothèque Manim").scale(ech).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-        l2 = Tex(r"Murièle Jacquier \& Simon Verdan  (GymInf 2021)").scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        
-                
-        self.add(l0,l1,l2)
-        self.wait(10)
+        l0 = Tex(r'Crédits').scale(2).move_to(np.array([0,3,0]))
+        l0b = Tex(r"Codage de Huffman",color=BLUE).scale(1.2).next_to(l0, direction=4*DOWN)
+        l1 = Tex(r"Murièle Jacquier \& Simon Verdan").scale(.8).next_to(l0b, direction=DOWN)
+        l1b = Tex(r"ASDI - GymInf 2021").scale(.8).next_to(l1, direction=3*DOWN)
+        l2 = Tex(r"Une vidéo réalisée à l'aide de Python et de la bibliothèque Manim").scale(.7).next_to(l1b, direction=3*DOWN)
 
+        self.play(Write(l0))
+        self.play(FadeIn(l0b))
+        self.play(FadeIn(l1))
+        self.play(FadeIn(l1b))
+        self.play(FadeIn(l2))
+
+        self.wait(2)
+
+        banner = ManimBanner().scale(0.25).to_corner(DR)
+        self.play(FadeIn(banner))
+        self.play(banner.expand())
+        #self.play(FadeOut(banner))
+
+        self.wait(1)
+        
+               
