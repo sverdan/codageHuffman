@@ -640,9 +640,30 @@ class Preuve(Scene):
         
         ech = .5 # pour régler l'échelle
         l0 = Tex(r'Preuve').scale(2).move_to(np.array([-4,3.5 ,0]))
-        l1 = Tex(r'(ici on décrit la preuve)').scale(ech).next_to(l0, direction=DOWN, aligned_edge=LEFT)
-                
-        self.add(l0,l1)
+         l1 = Tex(r'2 étapes pour démontrer que l''algorithme glouton de Huffman est correct').scale(0.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
+        l2 = Tex(r'Etape 1 : Lemme des fréquences faibles').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)  
+        l3 = Tex(r'Soit C un alphabet dans lequel chaque caractère c in C a la fréquence c.freq.').scale(0.5).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r'Soient x et y deux caractères de C ayant les fréquences les plus basses.').scale(0.5).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex(r'Alors il existe un codage préface optimal pour C dans lequel les mots de code pour x et y ont la même longueur et ne diffèrent que par le dernier bit').scale(0.5).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l6 = Tex(r'Etape 2 : Lemme de propagation de l''optimalité').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
+        l7 = Tex(r'Soit C un alphabet dans lequel chaque caractère c in C a la fréquence c.freq.').scale(0.5).next_to(l6, direction=DOWN, aligned_edge=LEFT)
+        l8 = Tex(r'Soient x et y deux caractères de C ayant la fréquence minimale.').scale(0.5).next_to(l7, direction=DOWN, aligned_edge=LEFT)
+        l9 = Tex(r'Soit C'' l''alphabet C privé des caractères x et y et complété par un nouveau caractère, de sorte que C''=C-(x,y)U(z)').scale(0.5).next_to(l8, direction=DOWN, aligned_edge=LEFT)
+        l10 = Tex(r'On définit C'' comme C sauf que z.freq=x.freq+y.freq').scale(0.5).next_to(l9, direction=DOWN, aligned_edge=LEFT)
+        l11 = Tex(r'Soit T'' un arbre  représentant un code préfixe optimal pour l''alphabet C''').scale(0.5).next_to(l10, direction=DOWN, aligned_edge=LEFT)
+        l12 = Tex(r'Alors, l''arbre  T, obtenu ä partir de T'' en remplaçant le noeud feuille associé à z par un noued interne ayant x et y comme enfants, représente un code optimal pour l''alphabet C').scale(0.5).next_to(l11, direction=DOWN, aligned_edge=LEFT)
+        
+        self.play(Write(l0))
+        self.wait(1)
+        self.play(Write(l1))
+        self.wait(2)
+        self.play(Write(l2),Write(l6))
+        self.wait(2)
+        self.play(Write(l3),Write(l4), Write(l5))
+        self.wait(5)
+        self.play(Write(l7),Write(l8), Write(l9))
+        self.wait(2)
+        self.play(Write(l10),Write(l11), Write(l12))
         self.wait(10)
 
 class Complexite(Scene):
