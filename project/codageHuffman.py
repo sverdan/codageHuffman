@@ -82,7 +82,7 @@ class Intro(Scene):
         
         l0c= Tex('Utilisé pour PNG, JPEG, MPEG, MP3, ZIP, etc.').scale(ech).next_to(l0b, direction=DOWN)
         self.play(FadeIn(l0c))
-        self.wait(2)
+        self.wait(5)
         self.play(FadeOut(l0c))
         self.play(l0b.animate.move_to(np.array([0,3,0])))
 
@@ -92,13 +92,13 @@ class Intro(Scene):
         self.play(FadeIn(l2))
         self.add(l3)
         
-        self.wait(1)
+        self.wait(3)
 
         def switchColorForSmallTime(texte,couleur1,couleur2):
             l1.set_color_by_tex(texte, couleur1)
-            self.wait(1.5)
+            self.wait(2)
             l1.set_color_by_tex(texte,couleur2)
-            self.wait(1.5)
+            self.wait(2)
 
         switchColorForSmallTime('l',RED,BLUE)
         switchColorForSmallTime('o',RED,BLUE)
@@ -126,6 +126,82 @@ class Intro(Scene):
 
         self.play(FadeIn(l7))
         self.play(FadeIn(l8))
+
+        self.wait(3)
+        
+        self.play(FadeOut(l0b),FadeOut(l4),FadeOut(l5),FadeOut(l6)) # on enlève le titre et les texte Huffman
+
+        self.play(l1.animate.move_to(np.array([0,3,0])))
+        self.play(l2.animate.next_to(l1,direction=3*DOWN))
+        self.play(l3.animate.next_to(l2,direction=DOWN)) # on remonte helloworld et le codage ascii
+        self.play(l7.animate.next_to(l3,direction=3*DOWN))
+        self.play(l8.animate.next_to(l7,direction=DOWN)) # on remonte le codage du Huffman
+
+        # on change la couleur des 8 premiers bits ascii
+        #l2.set_color_by_tex('01001000', RED)
+        #self.wait(2)
+        #l1.set_color_by_tex('01001000',WHITE)
+        #self.wait(2)
+        
+        # on resserre le code ascii
+        code = ""
+        for i in listeAscii :
+           code = code + i
+        l2b = Tex(code).scale(ech).next_to(l1,direction=4*DOWN)
+        self.play(ReplacementTransform(l2,l2b))
+        self.wait(2)
+
+        # cadre à déplacer
+        largeur = 1.22
+        cadre = Rectangle(color=RED,height=.5, width=largeur)
+        cadre.move_to(np.array([-6,1.725,0]))
+        self.play(ShowCreation(cadre))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([-6+largeur,1.725,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([-6+2*largeur,1.725,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([-6+2.98*largeur,1.725,0])))
+        self.wait(1)
+        self.play(FadeOut(cadre))
+        
+        # on resserre le code de Huffman
+        code = ""
+        for i in listeHuffman :
+           code = code + i
+
+        l7b = Tex(code).scale(ech).next_to(l3,direction=3*DOWN)
+        self.play(ReplacementTransform(l7,l7b))
+
+        self.wait(3)
+
+        cadre.move_to(np.array([-1.765,0.115,0]))
+        self.play(ShowCreation(cadre))
+        self.wait(2)
+        self.play(FadeOut(cadre))
+
+        l9 = Tex('Problème : comment décoder ?',color=BLUE).scale(ech).next_to(l8,direction=2*DOWN)
+        l10 = Tex("Nécessité d'un code \emph{préfixe}",color=RED).scale(ech).next_to(l9,direction=DOWN)
+        self.play(FadeIn(l9))
+        self.wait(1)
+        self.play(FadeIn(l10))
+
+        l11 = Tex("Un code est \emph{préfixe} si aucun mot de code n'est un préfixe d'un autre, c'est-à-dire correspond au début d'un autre mot de code").scale(ech).next_to(l10,direction=DOWN)
+        l12 = Tex("Exemple : si le symbole A est codé par 00 alors aucun autre symbole n'est codé par une suite qui commence par 00").scale(ech).next_to(l11,direction=DOWN)
+        self.play(FadeIn(l11))
+        self.wait(1)
+        self.play(FadeIn(l12))
+        self.wait(5)
+        self.play(FadeOut(l11))
+        self.play(FadeOut(l12))
+
+        l13 = Tex("d = 011 ; e = 010 ; H = 1111 ; l = 10 ; o = 00 ; r = 1110 ; W = 1100 ; espace = 1100",color=BLUE).scale(ech).next_to(l10,direction=2*DOWN)
+
+        self.play(FadeIn(l13))
+        
+        self.wait(5)
+
+
         
         l2b = Tex(r'ex : Hello World et image 10x10').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
         l3b = Tex(r'Domaine (où comment pourquoi) + exemple générique').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
@@ -749,7 +825,7 @@ class Limitations(Scene):
         l2 = Tex(r"$\rightarrow$ codage Huffman sur des blocs de $n$ symboles",color=BLUE).scale(0.6).next_to(l1, direction=DOWN, aligned_edge=LEFT)
         l3 = Tex(r"Le codage de Huffman évalue les probabilités des symboles au début, donc il n'est pas adapté dans le cas d'une source dont les propriétés statistiques évoluent").scale(.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
         l4 = Tex(r"$\rightarrow$ codage de Huffman adaptatif",color=BLUE).scale(0.6).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        
+        l5 = Tex(r"Le codage de Huffman n'est pas adapté à des sources d'entropie trop élevées (impossible de compresser un fichier compressé, par ex.").scale(.7).next_to(l4, direction=DOWN, aligned_edge=LEFT)
         
         self.play(Write(l0))
         self.play(Write(l0b))
@@ -854,6 +930,14 @@ class Preuve(Scene):
         self.play(FadeIn(l12))
         self.wait(10)
 
+
+
+###########################
+#
+# C O M P L E X I T E
+#
+###########################
+
 class Complexite(Scene):
     def construct(self):
         
@@ -863,9 +947,9 @@ class Complexite(Scene):
         l2 = Tex(r"Tout nœud construit est définitif").scale(0.7).next_to(l1, direction=DOWN)
         l3 = Tex(r"Sous arbre - arbre optimal").scale(0.7).next_to(l2, direction=DOWN)
         l4 = Tex(r"Coûts pour un alphabet de $k$ symboles").scale(1).next_to(l3, direction=2*DOWN)
-        l5 = Tex(r"$k-1$ itérations sur $E$").scale(0.7).next_to(l4, direction=DOWN)
-        l6 = Tex(r"Coûts d'intégration et d'extraction sont en $\Theta(\log(k))$").scale(0.7).next_to(l5, direction=DOWN)
-        l7 = Tex(r"L'algorithme est donc en $\Theta(k\,\log(k))$",color=BLUE).scale(1.0).next_to(l6, direction=2*DOWN)
+        l5 = Tex(r"$(k-1)$ opérations d'insertion et d'extraction dans la file de priorité $F$").scale(0.7).next_to(l4, direction=DOWN)
+        l6 = Tex(r"Coûts d'intégration et d'extraction majorés par $\log(k)$ si $F$ est implémenté par une structure de tas").scale(0.7).next_to(l5, direction=DOWN)
+        l7 = Tex(r"L'algorithme de Huffman est donc de l'ordre de $\mathcal{O}(k\,\log(k))$",color=BLUE).scale(1.0).next_to(l6, direction=2*DOWN)
         
         
         self.play(Write(l0))
@@ -876,9 +960,9 @@ class Complexite(Scene):
         self.play(FadeIn(l3))
         self.wait(3)  
         self.play(Write(l4))
-        self.wait(1)
+        self.wait(2)
         self.play(FadeIn(l5))
-        self.wait(1)
+        self.wait(2)
         self.play(FadeIn(l6))
         self.wait(3)
         self.play(Write(l7))
@@ -902,6 +986,36 @@ class Implementation(Scene):
                 
         self.add(l0,l1,l2,l3)
         self.wait(10)
+
+
+
+
+##############################
+#
+# R E F E R E N C E S 
+#
+##############################
+
+class References(Scene):
+    def construct(self):
+        
+        l0 = Tex(r'Références bibliographiques').scale(2).move_to(np.array([0,3,0]))
+        l1 = Tex(r"Introduction aux algorithmes (3e éd.)",color=BLUE).scale(.8).next_to(l0, direction=4*DOWN)
+        l1b = Tex(r"T. H. Cormen, R. L. Rivest \&\ C. Stein, Dunod, 2009").scale(.6).next_to(l1, direction=DOWN)
+        l2 = Tex(r"Introduction à la science informatique",color=BLUE).scale(.8).next_to(l1b, direction=2*DOWN)
+        l2b = Tex(r"G. Dowek, Canopé CRDP, 2011").scale(.6).next_to(l2, direction=DOWN)
+        
+
+        self.play(Write(l0))
+        self.play(FadeIn(l1),FadeIn(l1b))
+        self.wait(.5)
+        self.play(FadeIn(l2),FadeIn(l2b))
+        
+        self.wait(2)
+
+                       
+
+
 
 ##############################
 #
