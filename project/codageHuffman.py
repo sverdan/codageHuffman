@@ -187,8 +187,11 @@ class Intro(Scene):
         self.play(Write(l4))
         self.play(FadeIn(l5))
         self.play(FadeIn(l6)) 
-        
-        listeHuffman = ['1111','010','10','10','00','1100','1101','00','1110','10','011']
+       
+
+        listeHuffman = ['1110','1101','10','10','01','001','000','01','1111','10','1100']
+
+        #listeHuffman = ['1111','010','10','10','00','1100','1101','00','1110','10','011']
         code = ""
         for i in listeHuffman :
            code = code + i + ' '
@@ -267,7 +270,8 @@ class Intro(Scene):
         self.play(FadeOut(l11))
         self.play(FadeOut(l12))
 
-        l13 = Tex(r"d = 011 ; e = 010 ; H = 1111 ; l = 10 ; o = 00 ; r = 1110 ; W = 1100 ; \textvisiblespace = 1100",color=BLUE).scale(ech).next_to(l10,direction=2*DOWN)
+        l13 = Tex(r"d = 1100 ; e = 1101 ; H = 1110 ; l = 10 ; o = 01 ; r = 1111 ; W = 000 ; \textvisiblespace = 001",color=BLUE).scale(ech).next_to(l10,direction=2*DOWN)
+        #l13 = Tex(r"d = 011 ; e = 010 ; H = 1111 ; l = 10 ; o = 00 ; r = 1110 ; W = 1100 ; \textvisiblespace = 1100",color=BLUE).scale(ech).next_to(l10,direction=2*DOWN)
 
         self.play(FadeIn(l13))
         
@@ -288,7 +292,7 @@ class Intro(Scene):
 
 
         cadre2 = Rectangle(color=RED,height=.5, width=1.4)
-        cadre2.move_to(np.array([-2,-2.4,0]))
+        cadre2.move_to(np.array([-1.67,-2.4,0]))
         self.play(ShowCreation(cadre2))
         self.wait(3)
 
@@ -297,21 +301,14 @@ class Intro(Scene):
         self.play(cadre.animate.move_to(np.array([Xpos+4.84*largeur,0.115,0])))
         self.wait(1)
         self.play(cadre.animate.move_to(np.array([Xpos+5.76*largeur,0.115,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([Xpos+6.68*largeur,0.115,0])))
         self.wait(2)
-        self.play(cadre2.animate.move_to(np.array([-3.35,-2.4,0])))
+        self.play(cadre2.animate.move_to(np.array([-3.1,-2.4,0])))
         self.wait(3)
 
         self.play(FadeOut(cadre))
         self.play(FadeOut(cadre2))
-        
-
-
-        
-        l2b = Tex(r'ex : Hello World et image 10x10').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3b = Tex(r'Domaine (où comment pourquoi) + exemple générique').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4b = Tex(r'Partie historique ?').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5b = Tex(r'Codage préfixe ? (exemple du livre ou exemple ci-dessus)').scale(ech).next_to(l4, direction=DOWN, aligned_edge=LEFT)
-
         
         
         self.wait(10)
