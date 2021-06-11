@@ -42,7 +42,7 @@ class Titre(Scene):
         self.play(FadeIn(l2))
         self.play(FadeIn(l3))
 
-        self.wait(2)
+        self.wait(5)
 
 
 
@@ -59,10 +59,21 @@ class Intro(Scene):
         
         ech = .6 # pour régler l'échelle
        
-        
         l0 = Tex(r'Codage de Huffman ?').scale(2).move_to(np.array([0,3,0]))
-        l0b = Tex(r'Compression de données').scale(2)
+        l0b = Tex(r'Compression de données').scale(2).next_to(l0, direction=6*DOWN)
 
+        d1 = Tex(r"$\circ$ Codage de Huffman, inventé par David A. Huffman en 1951").scale(ech).next_to(l0b, direction=DOWN, aligned_edge=LEFT)
+        d2 = Tex(r"$\circ$ Algorithme glouton de compression de données sans perte").scale(ech).next_to(d1, direction=DOWN, aligned_edge=LEFT)
+        d3 = Tex(r"$\circ$ Basé sur la construction d'un arbre binaire").scale(ech).next_to(d2, direction=DOWN, aligned_edge=LEFT)
+        d4 = Tex(r"$\circ$ Très utilisé dans l'informatique actuelle pour compresser des données").scale(ech).next_to(d3, direction=DOWN, aligned_edge=LEFT)
+        d5 = Tex(r"$\circ$ Utilisé par ex. pour PNG, JPEG, MPEG, MP3, ZIP, etc.").scale(ech).next_to(d4, direction=DOWN, aligned_edge=LEFT)
+        
+
+        #d1 = Tex("").scale(ech).next_to(l0b, direction=3*DOWN)
+        #d1 = Tex("").scale(ech).next_to(l0b, direction=3*DOWN)
+
+
+        
         l1 = Tex('H','e','l','l','o ','W','o','r','l','d',color=BLUE).scale(1).next_to(l0, direction=5*DOWN)
         
         # avec ! : listeAscii = ['1001000','1100101','1101100','1101100','1101111','0100000','1010111','1101111','1110010','1101100','1100100','0100000','0100001']
@@ -76,16 +87,77 @@ class Intro(Scene):
         l2 = Tex(code).scale(ech).next_to(l1, direction=2*DOWN)
         l3 = Tex('codage ASCII (mots de 8 bits) : 88 bits nécessaires').scale(ech).next_to(l2, direction=DOWN)
         
+        # le titre et son remplacement par "compression"
         self.play(Write(l0))
         self.wait(1)
         self.play(ReplacementTransform(l0,l0b))
+        self.wait(2)
         
-        l0c= Tex('Utilisé pour PNG, JPEG, MPEG, MP3, ZIP, etc.').scale(ech).next_to(l0b, direction=DOWN)
-        self.play(FadeIn(l0c))
+        # affichage des détails sur algo huffman
+        self.play(FadeIn(d1))
+        self.wait(2)
+        self.play(FadeIn(d2))
+        self.wait(2)        
+        self.play(FadeIn(d3))
+        self.wait(2)        
+        self.play(FadeIn(d4))
+        self.wait(2)        
+        self.play(FadeIn(d5))
         self.wait(5)
-        self.play(FadeOut(l0c))
+
+        # et on efface tout puis on bouge le titre compression vers le haut
+        self.remove(d1,d2,d3,d4,d5)
         self.play(l0b.animate.move_to(np.array([0,3,0])))
 
+        c1 = Tex(r"Compression (sans perte)",color=BLUE).scale(1).next_to(l0b, direction=5*DOWN)
+        c2 = Tex(r"$A \quad (n \text{ bits}) \rightarrow B \quad (m \text{ bits}, m < n)$").scale(1).next_to(c1, direction=DOWN)
+        c3 = Tex(r"Décompression",color=BLUE).scale(1).next_to(c2, direction=3*DOWN)
+        c4 = Tex(r"$B \rightarrow A$").scale(1).next_to(c3, direction=DOWN)
+        
+        self.play(Write(c1))
+        self.wait(1)
+        self.play(FadeIn(c2))
+        self.wait(2)
+        self.play(Write(c3))
+        self.wait(1)
+        self.play(FadeIn(c4))
+        self.wait(20)
+
+        # on efface et on passe à compression successives et algo glouton
+        self.remove(c1,c2,c3,c4)
+        c5 = Tex(r"$A \quad (n \text{ bits}) \xrightarrow{\text{compression}} B \quad (m \text{ bits}, m < n)$").scale(1).next_to(l0b, direction=5*DOWN)
+        c6 = Tex(r"$B \quad (m \text{ bits})\xrightarrow{\text{compression}} B' \quad (m' \text{ bits}, m' \approx m)$").scale(1).next_to(c5, direction=DOWN)
+        c7 = Tex(r"$B' \quad (m' \text{ bits})\xrightarrow{\text{compression}} B'' \quad (m'' \text{ bits}, m'' \geqslant m')$").scale(1).next_to(c6, direction=DOWN)
+        self.play(Write(c5))
+        self.wait(1)
+        self.play(FadeIn(c6))
+        self.wait(1)
+        self.play(FadeIn(c7))
+        self.wait(25)
+
+        # on efface et on passe à compression successives et algo glouton
+        self.remove(c5,c6,c7)
+        
+        c8 = Tex(r"Codage de Huffman : algorithme glouton",color=BLUE).scale(1).next_to(l0b, direction=5*DOWN)
+        c9 = Tex(r"$\circ$ À chaque étape, le meilleur choix possible est effectué").scale(ech).next_to(c8, direction=DOWN, aligned_edge=LEFT)
+        c10 = Tex(r"Codage de Huffman :",color=RED).scale(1).next_to(c8, direction=6*DOWN, aligned_edge=LEFT)
+        c11 = Tex(r"$\circ$ algorithme glouton optimal",color=RED).scale(ech).next_to(c10,direction=DOWN, aligned_edge=LEFT)
+        c12 = Tex(r"$\circ$ code préfixe de longueur optimal",color=RED).scale(ech).next_to(c11,direction=DOWN, aligned_edge=LEFT)
+        
+        self.play(Write(c8))
+        self.wait(1)
+        self.play(FadeIn(c9))
+        self.wait(1)
+        self.play(FadeIn(c10))
+        self.wait(1)
+        self.play(FadeIn(c11))
+        self.wait(1)
+        self.play(FadeIn(c12))
+        self.wait(20)
+
+        # on efface tout pour la suite
+        self.remove(c8,c9,c10,c11,c12)
+        
         self.wait(1)
         self.play(Write(l1))
         self.wait(1)
@@ -175,7 +247,7 @@ class Intro(Scene):
 
         self.wait(3)
 
-        cadre.move_to(np.array([-1.765,0.115,0]))
+        cadre.move_to(np.array([-1.78,0.115,0]))
         self.play(ShowCreation(cadre))
         self.wait(2)
         self.play(FadeOut(cadre))
@@ -195,11 +267,43 @@ class Intro(Scene):
         self.play(FadeOut(l11))
         self.play(FadeOut(l12))
 
-        l13 = Tex("d = 011 ; e = 010 ; H = 1111 ; l = 10 ; o = 00 ; r = 1110 ; W = 1100 ; espace = 1100",color=BLUE).scale(ech).next_to(l10,direction=2*DOWN)
+        l13 = Tex(r"d = 011 ; e = 010 ; H = 1111 ; l = 10 ; o = 00 ; r = 1110 ; W = 1100 ; \textvisiblespace = 1100",color=BLUE).scale(ech).next_to(l10,direction=2*DOWN)
 
         self.play(FadeIn(l13))
         
         self.wait(5)
+        
+        largeur = .16
+        Xpos = -2.343
+        cadre = Rectangle(color=RED,height=.5, width=largeur)
+        cadre.move_to(np.array([Xpos,0.115,0]))
+        self.play(ShowCreation(cadre))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([Xpos+largeur,0.115,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([Xpos+2*largeur,0.115,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([Xpos+3*largeur,0.115,0])))
+        self.wait(2)
+
+
+        cadre2 = Rectangle(color=RED,height=.5, width=1.4)
+        cadre2.move_to(np.array([-2,-2.4,0]))
+        self.play(ShowCreation(cadre2))
+        self.wait(3)
+
+        self.play(cadre.animate.move_to(np.array([Xpos+3.92*largeur,0.115,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([Xpos+4.84*largeur,0.115,0])))
+        self.wait(1)
+        self.play(cadre.animate.move_to(np.array([Xpos+5.76*largeur,0.115,0])))
+        self.wait(2)
+        self.play(cadre2.animate.move_to(np.array([-3.35,-2.4,0])))
+        self.wait(3)
+
+        self.play(FadeOut(cadre))
+        self.play(FadeOut(cadre2))
+        
 
 
         
@@ -441,7 +545,7 @@ class Arbre(Scene):
         a7 = Tex(r'$7\quad\quad\quad z.freq = x.freq + y.freq$').scale(ech).next_to(a6, direction=DOWN, aligned_edge=LEFT)
         a8 = Tex(r'$8\quad\quad\quad$\textsc{Insérer}$(Q,z)$').scale(ech).next_to(a7, direction=DOWN, aligned_edge=LEFT)
         a9 = Tex(r'$9$ \textbf{retourner} \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a8, direction=DOWN, aligned_edge=LEFT)
-        boucleValue = Tex(r'Valeurs pour la boucle :').scale(ech).next_to(a9, direction=DOWN, aligned_edge=LEFT)
+        boucleValue = Tex(r'Valeurs pour la boucle :').scale(ech).next_to(a9, direction=2*DOWN, aligned_edge=LEFT)
         nValue = Tex(r'$n = 6$').scale(ech).next_to(boucleValue, direction=DOWN, aligned_edge=LEFT)
         iValue = Tex(r'$i = $').scale(ech).next_to(nValue, direction=DOWN, aligned_edge=LEFT)
         boucleValue.set_color(ORANGE)
@@ -806,6 +910,19 @@ class Arbre(Scene):
 
         self.wait(3)
 
+
+
+#######################
+#
+# LECTURE ARBRE 
+#
+#######################
+
+class Lecture(Scene):
+    def construct(self):
+        self.add(n100)
+
+        self.wait(3)
 
 
 #######################
