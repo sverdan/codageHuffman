@@ -325,9 +325,9 @@ class TexteArbre(Scene):
         ech = .5 # pour régler l'échelle
         titre = Tex(r'Un exemple pour comprendre').scale(2).move_to(np.array([0,3,0]))
         self.play(Write(titre))
-        self.wait(2)
+        self.wait(1.5)
         self.play(FadeOut(titre))
-        self.wait(1)
+        self.wait(.5)
 
         l0 = Tex(r'100 caractères $c$').scale(.7).move_to(np.array([-5, 3, 0]))
         l0b = Tex(r'avec $c \in C = \{A..F\}$').scale(.7).next_to(l0, direction=DOWN, aligned_edge=LEFT)
@@ -352,7 +352,7 @@ class TexteArbre(Scene):
         as5 = Tex(r'10000101000010100010010001011000101100001110000011000001100000110000101000010100000110000011000001100001110000011000001100010010000011000101').scale(echA).next_to(as4, direction=DOWN, aligned_edge=LEFT)
 
         texteAscii = VGroup(as1,as2,as3,as4,as5)
-        
+        texteLatin = VGroup(l1,l2,l3,l4,l5)
 
 
 
@@ -365,11 +365,13 @@ class TexteArbre(Scene):
         
         for i in listeCara :
             self.play(Write(i))
-        self.wait(5)
+        self.wait(1)
 
-        for i in range(len(listeCara)) :
-            self.play(FadeOut(listeCara[i]))
-            self.play(Write(listeAscii[i]))
+        #for i in range(len(listeCara)) :
+        #    self.play(FadeOut(listeCara[i]))
+        #    self.play(Write(listeAscii[i]))
+        self.play(FadeOut(texteLatin))
+        self.play(Write(texteAscii))
         
         as6 = Tex(r'100 caractères en ASCII 8 bits soit 800 bits',color=BLUE).scale(.7).next_to(as5, direction=3*DOWN)
         self.play(Write(as6))
@@ -485,7 +487,7 @@ class TexteArbre(Scene):
         self.wait(1)
         switchColor('F',WHITE)
 
-        self.wait(5)
+        self.wait(2)
 
         self.play(ApplyMethod(x1.shift,DOWN))
         self.play(ApplyMethod(x1.shift,9*LEFT))
@@ -515,9 +517,64 @@ class TexteArbre(Scene):
         self.play(x6.animate.next_to(x5, direction= 3*RIGHT))
         self.wait(1)
 
-        texte = Tex(r"File de priorité « min $F$ » dont les clés décrivent l'attribut $freq$ : ",color=BLUE).set_color(WHITE).scale(.7).shift(np.array([0, -2, 0]))
+        texte = Tex(r"File de priorité $F$ dont les clés décrivent l'attribut $freq$ : ",color=BLUE).set_color(WHITE).scale(.7).shift(np.array([0, -2, 0]))
         self.play(Write(texte))
         self.wait(2)
+
+
+
+
+#######################
+#
+# A L G O
+#
+#######################
+
+class Algo(Scene):
+    def construct(self):
+        
+        
+        ### ALGO
+        ech = .9 # pour régler l'échelle
+        a0 = Tex(r'\textsc{Huffman}$(C)$',color=BLUE).scale(ech*1.2).move_to(np.array([-2,3,0]))
+        a1 = Tex(r'$1.\quad n \leftarrow \vert C \vert$').scale(ech).next_to(a0, direction=DOWN, aligned_edge=LEFT)
+        a2 = Tex(r'$2.\quad F \leftarrow C$').scale(ech).next_to(a1, direction=DOWN, aligned_edge=LEFT)
+        a3 = Tex(r'$3.\quad$\textbf{pour} $i \leftarrow 1$ \textbf{à} $n-1$').scale(ech).next_to(a2, direction=DOWN, aligned_edge=LEFT)
+        a4 = Tex(r'$4.\quad\quad$ \textbf{faire} allouer un nouveau n\oe ud $z$').scale(ech).next_to(a3, direction=DOWN, aligned_edge=LEFT)
+        a5 = Tex(r'$5.\quad\quad\quad z.gauche = x =$ \textsc{Extraire-Min}$(F)$').scale(ech).next_to(a4, direction=DOWN, aligned_edge=LEFT)
+        a6 = Tex(r'$6.\quad\quad\quad z.droit = y =$ \textsc{Extraire-Min}$(F)$').scale(ech).next_to(a5, direction=DOWN, aligned_edge=LEFT)
+        a7 = Tex(r'$7.\quad\quad\quad z.freq = x.freq + y.freq$').scale(ech).next_to(a6, direction=DOWN, aligned_edge=LEFT)
+        a8 = Tex(r'$8.\quad\quad\quad$\textsc{Insérer}$(F,z)$').scale(ech).next_to(a7, direction=DOWN, aligned_edge=LEFT)
+        a9 = Tex(r'$9.$ \textbf{retourner} \textsc{Extraire-Min}$(F)$').scale(ech).next_to(a8, direction=DOWN, aligned_edge=LEFT)
+        boucleValue = Tex(r'Valeurs pour la boucle :').scale(ech).next_to(a9, direction=2*DOWN, aligned_edge=LEFT)
+        nValue = Tex(r'$n = 6$').scale(ech).next_to(boucleValue, direction=DOWN, aligned_edge=LEFT)
+        iValue = Tex(r'$i = $').scale(ech).next_to(nValue, direction=DOWN, aligned_edge=LEFT)
+        boucleValue.set_color(ORANGE)
+        nValue.set_color(ORANGE)
+        iValue.set_color(ORANGE)
+
+        
+        def Affiche(ligne,temps):
+            self.play(FadeIn(ligne))
+            self.wait(temps)
+
+        #a0,a1,a2,a3,a4,a5,a6,a7,a8,a9)
+        Affiche(a0,5)
+        Affiche(a1,7)
+        Affiche(a2,16)
+        Affiche(a3,12)
+        Affiche(a4,5)
+        Affiche(a5,6)
+        Affiche(a6,5)
+        Affiche(a7,8)
+        Affiche(a8,12)
+        Affiche(a9,13)
+        self.wait(1)
+
+
+
+
+
 
 
 #######################
@@ -534,19 +591,21 @@ class Arbre(Scene):
         ech = .5 # pour régler l'échelle
         a0 = Tex(r'\textsc{Huffman}$(C)$').scale(ech).move_to(np.array([-5.75,3.5 ,0]))
         a1 = Tex(r'$1\quad n \leftarrow \vert C \vert$').scale(ech).next_to(a0, direction=DOWN, aligned_edge=LEFT)
-        a2 = Tex(r'$2\quad Q \leftarrow C$').scale(ech).next_to(a1, direction=DOWN, aligned_edge=LEFT)
+        a2 = Tex(r'$2\quad F \leftarrow C$').scale(ech).next_to(a1, direction=DOWN, aligned_edge=LEFT)
         a3 = Tex(r'$3\quad$\textbf{pour} $i \leftarrow 1$ \textbf{à} $n-1$').scale(ech).next_to(a2, direction=DOWN, aligned_edge=LEFT)
         a4 = Tex(r'$4\quad\quad$ \textbf{faire} allouer un nouveau n\oe ud $z$').scale(ech).next_to(a3, direction=DOWN, aligned_edge=LEFT)
-        a5 = Tex(r'$5\quad\quad\quad z.gauche = x =$ \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a4, direction=DOWN, aligned_edge=LEFT)
-        a6 = Tex(r'$6\quad\quad\quad z.droit = y =$ \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a5, direction=DOWN, aligned_edge=LEFT)
+        a5 = Tex(r'$5\quad\quad\quad z.gauche = x =$ \textsc{Extraire-Min}$(F)$').scale(ech).next_to(a4, direction=DOWN, aligned_edge=LEFT)
+        a6 = Tex(r'$6\quad\quad\quad z.droit = y =$ \textsc{Extraire-Min}$(F)$').scale(ech).next_to(a5, direction=DOWN, aligned_edge=LEFT)
         a7 = Tex(r'$7\quad\quad\quad z.freq = x.freq + y.freq$').scale(ech).next_to(a6, direction=DOWN, aligned_edge=LEFT)
-        a8 = Tex(r'$8\quad\quad\quad$\textsc{Insérer}$(Q,z)$').scale(ech).next_to(a7, direction=DOWN, aligned_edge=LEFT)
-        a9 = Tex(r'$9$ \textbf{retourner} \textsc{Extraire-Min}$(Q)$').scale(ech).next_to(a8, direction=DOWN, aligned_edge=LEFT)
+        a8 = Tex(r'$8\quad\quad\quad$\textsc{Insérer}$(F,z)$').scale(ech).next_to(a7, direction=DOWN, aligned_edge=LEFT)
+        a9 = Tex(r'$9$ \textbf{retourner} \textsc{Extraire-Min}$(F)$').scale(ech).next_to(a8, direction=DOWN, aligned_edge=LEFT)
         boucleValue = Tex(r'Valeurs pour la boucle :').scale(ech).next_to(a9, direction=2*DOWN, aligned_edge=LEFT)
-        nValue = Tex(r'$n = 6$').scale(ech).next_to(boucleValue, direction=DOWN, aligned_edge=LEFT)
-        iValue = Tex(r'$i = $').scale(ech).next_to(nValue, direction=DOWN, aligned_edge=LEFT)
+        nValue = Tex(r'$n =$').scale(ech).next_to(boucleValue, direction=DOWN, aligned_edge=LEFT)
+        nValueB = Tex(r'$6$').scale(ech).next_to(nValue,direction=RIGHT)
+        iValue = Tex(r'$i =$').scale(ech).next_to(nValue, direction=DOWN, aligned_edge=LEFT)
         boucleValue.set_color(ORANGE)
         nValue.set_color(ORANGE)
+        nValueB.set_color(ORANGE)
         iValue.set_color(ORANGE)
 
         
@@ -557,12 +616,12 @@ class Arbre(Scene):
 
         
         echA = .35 
-        t1 = Text("f:5").set_color(WHITE).scale(echA).move_to(np.array([-1, 3, 0]))
-        t2 = Text("e:9 ").set_color(WHITE).scale(echA).shift(np.array([0.2, 3, 0]))
-        t3 = Text("c:12").set_color(WHITE).scale(echA).shift(np.array([1.5, 3, 0]))
-        t4 = Text("b:13").set_color(WHITE).scale(echA).shift(np.array([2.9, 3, 0]))
-        t5 = Text("d:16").set_color(WHITE).scale(echA).shift(np.array([4.3, 3, 0]))
-        t6 = Text("a:45").set_color(WHITE).scale(echA).shift(np.array([5.7, 3, 0]))
+        t1 = Text("F:5").set_color(WHITE).scale(echA).move_to(np.array([-1, 3, 0]))
+        t2 = Text("E:9 ").set_color(WHITE).scale(echA).shift(np.array([0.2, 3, 0]))
+        t3 = Text("C:12").set_color(WHITE).scale(echA).shift(np.array([1.5, 3, 0]))
+        t4 = Text("B:13").set_color(WHITE).scale(echA).shift(np.array([2.9, 3, 0]))
+        t5 = Text("D:16").set_color(WHITE).scale(echA).shift(np.array([4.3, 3, 0]))
+        t6 = Text("A:45").set_color(WHITE).scale(echA).shift(np.array([5.7, 3, 0]))
         
         bufferVal = .15
         f1 = SurroundingRectangle(t1, buff = bufferVal)
@@ -594,6 +653,7 @@ class Arbre(Scene):
         self.wait(.5)
         self.play(ShowCreation(boucleValue))
         self.play(ShowCreation(nValue))
+        self.play(ShowCreation(nValueB))
         self.wait(1)
         a1.set_color(WHITE)
         self.wait(1)
@@ -612,7 +672,7 @@ class Arbre(Scene):
         self.wait(1)
 
 # on démarre la boucle, on affiche i
-        i1 = Tex(r'$1$').scale(ech).move_to(np.array([-5.95,-2.22, 0]))
+        i1 = Tex(r'$1$').scale(ech).next_to(iValue,direction=RIGHT)
         i1.set_color(ORANGE)
         a3.set_color(RED)
         self.wait(.5)
@@ -672,7 +732,7 @@ class Arbre(Scene):
 
 
 # on poursuit la boucle, on affiche i
-        i2 = Tex(r'$2$').scale(ech).move_to(np.array([-5.95,-2.22, 0]))
+        i2 = Tex(r'$2$').scale(ech).next_to(iValue,direction=RIGHT)
         i2.set_color(ORANGE)
         a3.set_color(RED)
         self.wait(.5)
@@ -729,7 +789,7 @@ class Arbre(Scene):
 
 
 # on poursuit la boucle, on affiche i
-        i3 = Tex(r'$3$').scale(ech).move_to(np.array([-5.95,-2.22, 0]))
+        i3 = Tex(r'$3$').scale(ech).next_to(iValue,direction=RIGHT)
         i3.set_color(ORANGE)
         a3.set_color(RED)
         self.wait(.5)
@@ -787,7 +847,7 @@ class Arbre(Scene):
 
 
 # on poursuit la boucle, on affiche i
-        i4 = Tex(r'$4$').scale(ech).move_to(np.array([-5.95,-2.22, 0]))
+        i4 = Tex(r'$4$').scale(ech).next_to(iValue,direction=RIGHT)
         i4.set_color(ORANGE)
         a3.set_color(RED)
         self.wait(.5)
@@ -844,7 +904,7 @@ class Arbre(Scene):
         a8.set_color(WHITE)
         
 # on poursuit la boucle, on affiche i
-        i5 = Tex(r'$5$ (dernière itération)').scale(ech).move_to(np.array([-4.9,-2.22, 0])) # old x=-5.55 x=5
+        i5 = Tex(r'$5$ (dernière itération)').scale(ech).next_to(iValue,direction=RIGHT)
         i5.set_color(ORANGE)
         a3.set_color(RED)
         self.wait(.5)
@@ -907,19 +967,34 @@ class Arbre(Scene):
 
         self.wait(3)
 
+# lecture de l'arbre
+        
+
+        self.remove(a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,boucleValue,nValue,nValueB,iValue,i5)
+        
 
 
-#######################
-#
-# LECTURE ARBRE 
-#
-#######################
+        echL=.8
+        n0 = Tex(r"Lecture de l'arbre",color=BLUE).scale(1.2*echL).move_to(np.array([-5.75,3.5 ,0]))
+        nA = Tex(r"A : 0").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
+        nB = Tex(r"B : 101").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
+        nC = Tex(r"C : 100").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
+        nD = Tex(r"D : 111").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
+        nE = Tex(r"E : 1101").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
+        nF = Tex(r"F : 1100").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
 
-class Lecture(Scene):
-    def construct(self):
-        self.add(n100)
+        # on ajoute une grille
+        for x in range(-7, 8):
+            for y in range(-5, 6):
+                dot = Dot(point=(x, y, 0))
+                self.add(dot)
 
-        self.wait(3)
+        
+        cercle = Circle(radius=.7, color=BLUE)
+        cercle.move_to(np.array([1, 2, 0]))
+        
+        self.play(ShowCreation(cercle))
+        self.wait(2)
 
 
 #######################
@@ -1114,7 +1189,7 @@ class References(Scene):
     def construct(self):
         
         l0 = Tex(r'Références bibliographiques').scale(2).move_to(np.array([0,3,0]))
-        l1 = Tex(r"Introduction aux algorithmes (3e éd.)",color=BLUE).scale(.8).next_to(l0, direction=4*DOWN)
+        l1 = Tex(r"Introduction à l'algorithmique (3e éd.)",color=BLUE).scale(.8).next_to(l0, direction=4*DOWN)
         l1b = Tex(r"T. H. Cormen, R. L. Rivest \&\ C. Stein, Dunod, 2009").scale(.6).next_to(l1, direction=DOWN)
         l2 = Tex(r"Introduction à la science informatique",color=BLUE).scale(.8).next_to(l1b, direction=2*DOWN)
         l2b = Tex(r"G. Dowek, Canopé CRDP, 2011").scale(.6).next_to(l2, direction=DOWN)
@@ -1125,7 +1200,7 @@ class References(Scene):
         self.wait(.5)
         self.play(FadeIn(l2),FadeIn(l2b))
         
-        self.wait(2)
+        self.wait(6)
 
                        
 
