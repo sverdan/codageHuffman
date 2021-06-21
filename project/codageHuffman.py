@@ -669,7 +669,7 @@ class Arbre(Scene):
         self.play(ShowCreation(x5))
         self.play(ShowCreation(x6))
         a2.set_color(WHITE)
-        self.wait(1)
+        self.wait(3)
 
 # on démarre la boucle, on affiche i
         i1 = Tex(r'$1$').scale(ech).next_to(iValue,direction=RIGHT)
@@ -711,7 +711,7 @@ class Arbre(Scene):
         t21 = Text("14")
         x21 = CircleWithContent(t21).scale(echA).shift(np.array([2, 0, 0]))
         a7.set_color(RED)
-        self.wait(.5)
+        self.wait(1.5)
         self.play(ReplacementTransform(x00,x21))
         a7.set_color(WHITE)
 
@@ -722,13 +722,13 @@ class Arbre(Scene):
        
         n14 = VGroup(l21,l22,x21,x1,x2,tl20,tl21)
         a8.set_color(RED)
-        self.wait(.5)
+        self.wait(1.5)
         self.play(x3.animate.move_to(np.array([-1, 3, 0])))
         self.play(x4.animate.move_to(np.array([0.2, 3, 0])))
         self.play(n14.animate.move_to(np.array([2.2, 2.55, 0])))
         a8.set_color(WHITE)
 
-        self.wait(1)
+        self.wait(3)
 
 
 # on poursuit la boucle, on affiche i
@@ -769,7 +769,7 @@ class Arbre(Scene):
         t31 = Text("25")
         x31 = CircleWithContent(t31).scale(echA).shift(np.array([2, 0, 0]))
         a7.set_color(RED)
-        self.wait(.5)
+        self.wait(1.5)
         self.play(ReplacementTransform(x01,x31))
         a7.set_color(WHITE)
 
@@ -780,11 +780,12 @@ class Arbre(Scene):
        
         n25 = VGroup(l31,l32,x31,x3,x4,tl30,tl31)
         a8.set_color(RED)
-        self.wait(.5)
+        self.wait(1)
         self.play(n14.animate.move_to(np.array([1, 2.55, 0])))
         self.play(x5.animate.move_to(np.array([2.5, 3, 0])))
         self.play(n25.animate.move_to(np.array([4, 2.55, 0]))) # old : 4.2
         a8.set_color(WHITE)
+        self.wait(.5)
 
 
 
@@ -792,9 +793,9 @@ class Arbre(Scene):
         i3 = Tex(r'$3$').scale(ech).next_to(iValue,direction=RIGHT)
         i3.set_color(ORANGE)
         a3.set_color(RED)
-        self.wait(.5)
-        self.play(ReplacementTransform(i2,i3))
         self.wait(1)
+        self.play(ReplacementTransform(i2,i3))
+        self.wait(1.5)
         a3.set_color(WHITE)
        
 
@@ -808,14 +809,14 @@ class Arbre(Scene):
         self.add(x02)
         self.play(ShowCreation(l41))
         self.play(ShowCreation(l42))
-        self.wait(1)
+        self.wait(1.5)
         a4.set_color(WHITE)
   
           
         a5.set_color(RED)
         self.wait(.5)
         self.play(n14.animate.move_to(np.array([1.2, -1.5, 0])))
-        self.wait(1)
+        self.wait(2)
         a5.set_color(WHITE)
         
         a6.set_color(RED)
@@ -830,6 +831,7 @@ class Arbre(Scene):
         self.wait(.5)
         self.play(ReplacementTransform(x02,x41))
         a7.set_color(WHITE)
+        self.wait(1)
 
         tl40 = Text("0").set_color(WHITE).scale(.3).move_to(np.array([1.4, -0.5, 0]))
         tl41 = Text("1").set_color(WHITE).scale(.3).move_to(np.array([2.6, -0.5, 0]))
@@ -838,12 +840,12 @@ class Arbre(Scene):
        
         n30 = VGroup(l41,l42,x41,n14,x5,tl40,tl41)
         a8.set_color(RED)
-        self.wait(.5)
+        self.wait(1.5)
         
         self.play(n25.animate.move_to(np.array([1, 2.55, 0])))
         self.play(n30.animate.move_to(np.array([4, 2, 0])))
         a8.set_color(WHITE)
-        
+        self.wait(1)
 
 
 # on poursuit la boucle, on affiche i
@@ -873,13 +875,13 @@ class Arbre(Scene):
         a5.set_color(RED)
         self.wait(.5)
         self.play(n25.animate.move_to(np.array([.6, -1.5, 0])))
-        self.wait(1)
+        self.wait(2)
         a5.set_color(WHITE)
         
         a6.set_color(RED)
         self.wait(.5)
         self.play(n30.animate.move_to(np.array([3.02, -2.05, 0]))) # old y=-2 x=3.1 x=3.05
-        self.wait(1)
+        self.wait(2)
         a6.set_color(WHITE)
 
         t51 = Text("55")
@@ -888,6 +890,7 @@ class Arbre(Scene):
         self.wait(.5)
         self.play(ReplacementTransform(x03,x51))
         a7.set_color(WHITE)
+        self.wait(1)
 
         tl50 = Text("0").set_color(WHITE).scale(.3).move_to(np.array([.8, -0.5, 0]))
         tl51 = Text("1").set_color(WHITE).scale(.3).move_to(np.array([3.2, -0.5, 0]))
@@ -909,7 +912,7 @@ class Arbre(Scene):
         a3.set_color(RED)
         self.wait(.5)
         self.play(ReplacementTransform(i4,i5))
-        self.wait(1)
+        self.wait(2.5)
         a3.set_color(WHITE)
        
 
@@ -958,7 +961,7 @@ class Arbre(Scene):
         self.play(n100.animate.move_to(np.array([3, 1, 0]))) # old y=2 y=1.5
         a8.set_color(WHITE)
 
-        self.wait(2)
+        self.wait(4)
 
 # dernière étape : l'extraction du min donne la racine de l'arborescence 
         a9.set_color(RED)
@@ -975,26 +978,131 @@ class Arbre(Scene):
 
 
         echL=.8
-        n0 = Tex(r"Lecture de l'arbre",color=BLUE).scale(1.2*echL).move_to(np.array([-5.75,3.5 ,0]))
+        n0 = Tex(r"Lecture de l'arbre",color=BLUE).scale(1.2*echL).move_to(np.array([-4,3 ,0]))
         nA = Tex(r"A : 0").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
-        nB = Tex(r"B : 101").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
-        nC = Tex(r"C : 100").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
-        nD = Tex(r"D : 111").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
-        nE = Tex(r"E : 1101").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
-        nF = Tex(r"F : 1100").scale(echL).next_to(n0, direction=2*DOWN, aligned_edge=LEFT)
+        nB = Tex(r"B : 101").scale(echL).next_to(nA, direction=2*DOWN, aligned_edge=LEFT)
+        nC = Tex(r"C : 100").scale(echL).next_to(nB, direction=2*DOWN, aligned_edge=LEFT)
+        nD = Tex(r"D : 111").scale(echL).next_to(nC, direction=2*DOWN, aligned_edge=LEFT)
+        nE = Tex(r"E : 1101").scale(echL).next_to(nD, direction=2*DOWN, aligned_edge=LEFT)
+        nF = Tex(r"F : 1100").scale(echL).next_to(nE, direction=2*DOWN, aligned_edge=LEFT)
 
         # on ajoute une grille
-        for x in range(-7, 8):
-            for y in range(-5, 6):
-                dot = Dot(point=(x, y, 0))
-                self.add(dot)
+        #for x in range(-7, 8):
+        #    for y in range(-5, 6):
+        #        dot = Dot(point=(x, y, 0))
+        #        self.add(dot)
 
-        
-        cercle = Circle(radius=.7, color=BLUE)
-        cercle.move_to(np.array([1, 2, 0]))
-        
+        self.play(Write(n0))
+        self.wait(5)
+        # lecture A
+        tempo = .5
+        cercle = Circle(radius=.5, color=BLUE)
+        cercle.move_to(np.array([1.85, 3, 0])) # 100
         self.play(ShowCreation(cercle))
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([0.46, 2, 0]))) # A
+        self.wait(tempo)
+        self.play(Write(nA))
         self.wait(2)
+        self.play(FadeOut(cercle))
+        # lecture C
+        cercle.move_to(np.array([1.85, 3, 0])) # 100
+        self.play(FadeIn(cercle))
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.36, 2, 0]))) # 55
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([1.91, .91, 0]))) # 25
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([1.21, 0, 0]))) # C
+        self.wait(tempo)
+        self.play(Write(nC))
+        self.wait(2)
+        self.play(FadeOut(cercle))
+        # lecture B
+        cercle.move_to(np.array([1.85, 3, 0])) # 100
+        self.play(FadeIn(cercle))
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.36, 2, 0]))) # 55
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([1.91, .91, 0]))) # 25
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([2.79, 0, 0]))) # B
+        self.wait(tempo)
+        self.play(Write(nB))
+        self.wait(2)
+        self.play(FadeOut(cercle))
+        # lecture F
+        cercle.move_to(np.array([1.85, 3, 0])) # 100
+        self.play(FadeIn(cercle))
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.36, 2, 0]))) # 55
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([4.7, .91, 0]))) # 30
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.96, -.11, 0]))) # 14
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.14, -1.11, 0]))) # F
+        self.wait(tempo)
+        self.play(Write(nF))
+        self.wait(2)
+        self.play(FadeOut(cercle))
+        # lecture E
+        cercle.move_to(np.array([1.85, 3, 0])) # 100
+        self.play(FadeIn(cercle))
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.36, 2, 0]))) # 55
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([4.7, .91, 0]))) # 30
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.96, -.11, 0]))) # 14
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([4.7, -1.11, 0]))) # E
+        self.wait(tempo)
+        self.play(Write(nE))
+        self.wait(2)
+        self.play(FadeOut(cercle))
+        # lecture D
+        cercle.move_to(np.array([1.85, 3, 0])) # 100
+        self.play(FadeIn(cercle))
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([3.36, 2, 0]))) # 55
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([4.7, .91, 0]))) # 30
+        self.wait(tempo)
+        self.play(cercle.animate.move_to(np.array([5.57, -.09, 0]))) # D
+        self.wait(tempo)
+        self.play(Write(nD))
+        self.wait(5)
+        self.play(FadeOut(cercle))
+
+        # codage du texte
+        self.play(FadeOut(n100))
+        
+        
+        l1 = Tex('D','B','A','E','E','C','C','A','A','A','D','A','A','D','B','A','C','A','A','B').scale(ech).move_to(np.array([0, 2, 0]))
+        l2 = Tex('B','F','D','A','F','A','A','E','A','A','D','A','D','C','A','E','A','B','A','D').scale(ech).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex('C','C','C','A','A','D','A','F','F','A','A','B','A','A','E','A','D','D','C','F').scale(ech).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex('A','D','A','A','E','B','D','D','D','B','A','A','C','C','A','A','A','A','B','A').scale(ech).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex('B','B','D','E','E','C','A','A','A','B','B','A','A','A','C','A','A','D','A','E').scale(ech).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l6 = Tex('Codage de Huffman : 224 bits',color=BLUE).scale(.7).next_to(l5, direction=3*DOWN, aligned_edge=LEFT)
+        l7 = Tex(r'Taux de compression par rapport ASCII : 72 \%',color=BLUE).scale(.7).next_to(l6, direction=DOWN, aligned_edge=LEFT)
+
+        echA = .35
+        texteLatin = VGroup(l1,l2,l3,l4,l5)
+
+        listeCara=[l1,l2,l3,l4,l5]
+                
+        for i in listeCara :
+            self.play(Write(i))
+        self.wait(1)
+
+
+        self.play(FadeIn(l6))
+        self.play(FadeIn(l7))
+
+        self.wait(3)
+
+       
 
 
 #######################
