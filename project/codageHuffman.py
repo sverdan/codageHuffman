@@ -1115,45 +1115,115 @@ class Limitations(Scene):
     def construct(self):
 
         ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Limitations').scale(2).move_to(np.array([0,3 ,0]))
-        l0b = Tex(r'du codage de Huffman').scale(1.5).next_to(l0, direction=DOWN)
+        l0 = Tex(r'Efficacité et limitations').scale(1.6).move_to(np.array([0,3 ,0]))
+        #l0b = Tex(r'du codage de Huffman').scale(1.5).next_to(l0, direction=DOWN)
         
-        l1 = Tex(r"Le codage de Huffman impose d'utiliser un nombre entier de bits pour un symbole source").scale(.7).move_to(np.array([0,.5,0]))
+
+        m1 = Tex(r"Efficacité",color=BLUE).scale(1).move_to(np.array([-4,2 ,0]))
+        m2 = Tex(r"\[E=\frac{\mathcal{H}(p)}{L_{inf}}\]").scale(0.7).next_to(m1, direction=3*RIGHT)
+        m3 = Tex(r"\[E = 1 \iff p_k=2^{-l^k}\]").scale(0.7).next_to(m2, direction=3*RIGHT)
+
+        m4 = Tex(r"Limitations",color=BLUE).scale(1).next_to(m1, direction=3.5*DOWN, aligned_edge=LEFT)
+        l1 = Tex(r"Impose d'utiliser un nombre entier de bits pour un symbole source").scale(.7).next_to(m4, direction=DOWN, aligned_edge=LEFT)
         l2 = Tex(r"$\rightarrow$ codage Huffman sur des blocs de $n$ symboles",color=BLUE).scale(0.6).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r"Le codage de Huffman évalue les probabilités des symboles au début, donc il n'est pas adapté dans le cas d'une source dont les propriétés statistiques évoluent").scale(.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
-        l4 = Tex(r"$\rightarrow$ codage de Huffman adaptatif",color=BLUE).scale(0.6).next_to(l3, direction=DOWN, aligned_edge=LEFT)
-        l5 = Tex(r"Le codage de Huffman n'est pas adapté à des sources d'entropie trop élevées (impossible de compresser un fichier compressé, par ex.").scale(.7).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l3 = Tex(r"Évaluation des probabilités des symboles au début, donc non adapté").scale(.7).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l3b = Tex(r"pour les sources dont les propriétés statistiques évoluent").scale(.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
+        l4 = Tex(r"$\rightarrow$ codage de Huffman adaptatif",color=BLUE).scale(0.6).next_to(l3b, direction=DOWN, aligned_edge=LEFT)
+        l5 = Tex(r"Non adapté à des sources d'entropie trop élevées (impossible de com-").scale(.7).next_to(l4, direction=DOWN, aligned_edge=LEFT)
+        l5b = Tex(r"presser un fichier compressé, par ex.)").scale(.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
         
         self.play(Write(l0))
-        self.play(Write(l0b))
+        self.wait(1)
+        self.play(FadeIn(m1))
+        self.wait(1)
+        self.play(FadeIn(m2))
+        self.wait(3)  
+        self.play(FadeIn(m3))
+        self.wait(1)
+        self.play(FadeIn(m4))
         self.wait(1)
         self.play(FadeIn(l1))
         self.wait(1)
         self.play(Write(l2))
         self.wait(3)  
-        self.play(FadeIn(l3))
+        self.play(FadeIn(l3),FadeIn(l3b))
         self.wait(1)
         self.play(Write(l4))
+        self.wait(1)
+        self.play(FadeIn(l5),FadeIn(l5b))
         self.wait(10)
+
+
+
+
+
+
+
 
 
 class Caractéristiques(Scene):
     def construct(self):
 
-        ech = .5 # pour régler l'échelle
-        l0 = Tex(r'Caractéristiques').scale(2).move_to(np.array([0,3 ,0]))
-        l0b = Tex(r'du codage de Huffman').scale(1.5).next_to(l0, direction=DOWN)
-        l1 = Tex(r'Non-unicité',color=BLUE).scale(1).move_to(np.array([-4,1,0]))
+        ech = .7 # pour régler l'échelle
+        l0 = Tex(r'Caractéristiques').scale(1.6).move_to(np.array([0,3 ,0]))
+        #l0b = Tex(r'du codage de Huffman').scale(1.5).next_to(l0, direction=DOWN)
+        self.play(Write(l0))
+        self.wait(1)
+                
+        # Slide 1
+
+        k1 = Tex(r"Inégalité de Kraft",color=BLUE).scale(1).move_to(np.array([-4,2,0]))
+        k2 = Tex(r"Soit $S$ un alphabet de $s$ symboles $S=\{s_1,s_2,..., s_k\}$").scale(ech).next_to(k1, direction=DOWN, aligned_edge=LEFT)
+        k4 = Tex(r"Soit $C$ un code préfixe, avec les mots-codes $C(s_k)$ de longueur $l_k$").scale(ech).next_to(k2, direction=DOWN, aligned_edge=LEFT)
+        k5 = Tex(r"\[\sum_{i=1}^{k} \frac{1}{2^{l_i}} \leq 1\]").scale(ech).next_to(k4, direction=DOWN, aligned_edge=LEFT)
+        k6 = Tex(r"Longueur moyenne d'un code",color=BLUE).scale(1).next_to(k5, direction=2*DOWN, aligned_edge=LEFT)
+        k7 = Tex(r"Soit $\{p_1,p_2,...,p_k\}$ les probabilités (fréq.) d'apparition des symboles à coder").scale(ech).next_to(k6, direction=DOWN, aligned_edge=LEFT)
+        k8 = Tex(r"\[L(C) = \sum_{i=1}^{k} p_i l_i\]").scale(ech).next_to(k7, direction=DOWN, aligned_edge=LEFT)
+
+        k9 = Tex(r"Longueur moyenne du meilleur code préfixe de $C$",color=BLUE).scale(1).next_to(k5, direction=2*DOWN, aligned_edge=LEFT)
+        k10 = Tex(r"\[L_\text{inf} = \inf_{C \text{préfixe}} L(C)\]").scale(ech).next_to(k9, direction=DOWN, aligned_edge=LEFT)
+        
+
+        self.play(FadeIn(k1))
+        self.play(FadeIn(k2))
+        self.play(FadeIn(k4))
+        self.play(FadeIn(k5))
+        self.play(FadeIn(k6))
+        self.play(FadeIn(k7))
+        self.play(FadeIn(k8))
+        self.wait(5)
+        self.remove(k6,k7,k8) 
+        self.play(FadeIn(k9))
+        self.play(FadeIn(k10))
+        self.wait(10)
+        self.remove(k1,k2,k4,k5,k6,k7,k8,k9,k10)
+    
+        
+        # Slide 2
+        
+        m1 = Tex(r"Entropie $\mathcal{H}(p)$",color=BLUE).scale(1).move_to(np.array([-4,2,0]))
+        m2 = Tex(r"\[\mathcal{H}(p)=\sum_{i=1}^{k} p_i \log_2 p_i\]").scale(ech).next_to(m1, direction=DOWN, aligned_edge=LEFT)
+        m3 = Tex(r"Théorème de Shanon",color=BLUE).scale(1).next_to(m2, direction=2*DOWN, aligned_edge=LEFT)
+        m4 = Tex(r"\[\mathcal{H}(p) \leq L_\text{inf} \leq \mathcal{H}(p) + 1\]").scale(ech).next_to(m3, direction=1.5*DOWN, aligned_edge=LEFT)
+
+        self.play(FadeIn(m1))
+        self.play(FadeIn(m2))
+        self.play(FadeIn(m3))
+        self.play(FadeIn(m4))
+        self.wait(10)
+        self.remove(m1,m2,m3,m4)
+        
+        # Slide 3
+
+        
+        l1 = Tex(r'Non-unicité',color=BLUE).scale(1).move_to(np.array([-4.5,2,0]))
         l2 = Tex(r'On peut produire des arbres différents pour un même alphabet :').scale(0.7).next_to(l1, direction=DOWN, aligned_edge=LEFT)
-        l3 = Tex(r'$\circ$ choix pour les éléments de même fréquence').scale(0.7).next_to(l2, direction=DOWN+.5*RIGHT, aligned_edge=LEFT)
+        l3 = Tex(r'$\circ$ choix pour les symboles de même fréquence').scale(0.7).next_to(l2, direction=DOWN+.5*RIGHT, aligned_edge=LEFT)
         l4 = Tex(r'$\circ$ choix gauche/droite pour chaque nœud').scale(0.7).next_to(l3, direction=DOWN, aligned_edge=LEFT)
         l5 = Tex(r'Conséquences',color=BLUE).scale(1).next_to(l4, direction=2*DOWN+.5*LEFT, aligned_edge=LEFT)
         l6 = Tex(r'Pour décoder, il faut fournir le code ou au moins donner les règles sur les choix').scale(0.7).next_to(l5, direction=DOWN, aligned_edge=LEFT)
+        l7 = Tex(r"Existence d'un codage canonique : code des mots et non plus des symboles").scale(0.7).next_to(l6, direction=DOWN, aligned_edge=LEFT)
         
-        
-        self.play(Write(l0))
-        self.play(Write(l0b))
-        self.wait(1)
         self.play(FadeIn(l1))
         self.wait(1)
         self.play(FadeIn(l2))
@@ -1163,7 +1233,13 @@ class Caractéristiques(Scene):
         self.wait(3)
         self.play(FadeIn(l5))
         self.play(FadeIn(l6))
+        self.play(FadeIn(l7))
         self.wait(10)
+
+        
+
+        
+
         
 
 
@@ -1285,8 +1361,28 @@ class Implementation(Scene):
         self.wait(10)
 
 
+##############################
+#
+# C O N C L U S I O N 
+#
+##############################
 
+class Conclusion(Scene):
+    def construct(self):
+        
+        l0 = Tex(r'Le codage de Huffman :',color=BLUE).scale(1.4).move_to(np.array([-1.5,2,0]))
+        l1 = Tex(r"$\circ$ algorithme glouton").scale(.8).next_to(l0, direction=2*DOWN, aligned_edge=LEFT)
+        l1b = Tex(r"$\circ$ qui construit un codage préfixe optimal").scale(.8).next_to(l1, direction=DOWN, aligned_edge=LEFT)
+        l2 = Tex(r"$\circ$ en construisant l’arbre binaire de façon ascendante").scale(.8).next_to(l1b, direction=DOWN, aligned_edge=LEFT)
+        l2b = Tex(r"$\circ$ en utilisant une file de priorité pour trouver le symbole").scale(.8).next_to(l2, direction=DOWN, aligned_edge=LEFT)
+        l2c = Tex(r" le moins fréquent").scale(.8).next_to(l2b, direction=DOWN, aligned_edge=LEFT)
+        
 
+        self.play(Write(l0))
+        self.play(FadeIn(l1),FadeIn(l1b),FadeIn(l2),FadeIn(l2b),FadeIn(l2c))
+        
+        self.wait(6)
+ 
 ##############################
 #
 # R E F E R E N C E S 
